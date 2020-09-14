@@ -15,6 +15,7 @@ buildscript {
 }
 
 plugins{
+    id 'checkstyle'
     id 'pmd'
 }
 
