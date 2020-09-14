@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'de.mannodermaus.android-junit5'
+apply plugin: 'pmd'
 
 android {
     compileSdkVersion 29
@@ -33,3 +34,16 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 }
+
+task pmd(type:Pmd) {
+    group 'verification'
+    ruleSets = ["java-basic"]
+    ruleSetFiles = files './config/pmd/pmd.xml'
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+    source 'src/main'
+}
+
+tasks.check.dependsOn(tasks.pmd)
