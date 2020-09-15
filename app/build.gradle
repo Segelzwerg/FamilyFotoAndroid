@@ -3,6 +3,8 @@ apply plugin: 'de.mannodermaus.android-junit5'
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
 
+import io.franzbecker.gradle.lombok.task.DelombokTask
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -32,6 +34,8 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
     // (Required) Writing and executing Unit Tests on the JUnit Platform
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.2"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.6.2"
@@ -59,5 +63,22 @@ task pmd(type:Pmd) {
     source 'src/main'
 }
 
+task delombok(type: DelombokTask) {
+    ext.outputDir = file "$buildDir/delombok"
+    outputs.dir(outputDir)
+    android.sourceSets.main.java.srcDirs.each {
+        inputs.dir(it)
+        args(it, "-d", outputDir)
+    }
+}
+
+task javadoc(type: Javadoc) {
+    dependsOn delombok
+    source delombok.outputDir
+    destinationDir = file "doc/javadoc"
+    failOnError = false
+}
+
 tasks.check.dependsOn(tasks.pmd)
 tasks.check.dependsOn(tasks.checkstyle)
+tasks.javadoc.dependsOn(tasks.check)

@@ -17,6 +17,7 @@ buildscript {
 plugins{
     id 'checkstyle'
     id 'pmd'
+    id 'io.franzbecker.gradle-lombok' version '3.3.0'
 }
 
 allprojects {
