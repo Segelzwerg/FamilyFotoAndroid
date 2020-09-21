@@ -3,7 +3,7 @@ package com.segelzwerg.familyfotoandroid;
 import com.segelzwerg.familyfotoandroid.familiyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familiyfotoservice.FamilyFotoService;
 import com.segelzwerg.familyfotoandroid.familiyfotoservice.LoginCredentials;
-import com.segelzwerg.familyfotoandroid.familiyfotoservice.RetrofitClientUtil;
+import com.segelzwerg.familyfotoandroid.familiyfotoservice.utils.RetrofitClientUtil;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
