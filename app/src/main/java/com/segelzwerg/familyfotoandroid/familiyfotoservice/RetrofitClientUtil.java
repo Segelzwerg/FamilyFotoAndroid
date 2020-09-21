@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Builds the retrofit2 client.
  */
-public class RetrofitClientBuilder {
+public class RetrofitClientUtil {
 
     /**
      * Builds the retrofit2 client instance with gson.
