@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClientBuilder {
 
     /**
+     * Builds the retrofit2 client instance with gson.
      * @param baseUrl the host url
      * @return {@link Retrofit} instance
      */
