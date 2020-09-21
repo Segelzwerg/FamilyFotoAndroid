@@ -3,7 +3,7 @@ package com.segelzwerg.familyfotoandroid;
 import com.segelzwerg.familyfotoandroid.familiyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familiyfotoservice.FamilyFotoService;
 import com.segelzwerg.familyfotoandroid.familiyfotoservice.LoginCredentials;
-import com.segelzwerg.familyfotoandroid.familiyfotoservice.RetrofitClientBuilder;
+import com.segelzwerg.familyfotoandroid.familiyfotoservice.RetrofitClientUtil;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +30,7 @@ public class TestFamilyFotoService {
     @BeforeEach
     public void setUp() throws IOException {
         mockWebServer.start();
-        familyFotoService = RetrofitClientBuilder.buildRetrofitInstance(mockWebServer.url("/"))
+        familyFotoService = RetrofitClientUtil.buildRetrofitInstance(mockWebServer.url("/"))
                 .create(FamilyFotoService.class);
     }
 
