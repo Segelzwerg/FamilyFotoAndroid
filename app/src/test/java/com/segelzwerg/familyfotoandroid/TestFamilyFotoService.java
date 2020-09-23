@@ -53,7 +53,7 @@ public class TestFamilyFotoService {
         AuthToken expected_token = new AuthToken("token");
 
 
-        assertThat(request.getPath()).isEqualTo("/api/login");
+        assertThat(request.getPath()).isEqualTo("/api/token");
         assertThat(tokenResponse.code()).isEqualTo(HttpsURLConnection.HTTP_OK);
         assertThat(tokenResponse.body()).usingRecursiveComparison().isEqualTo(expected_token);
     }
