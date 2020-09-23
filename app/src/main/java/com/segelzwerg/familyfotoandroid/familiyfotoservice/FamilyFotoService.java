@@ -14,6 +14,6 @@ public interface FamilyFotoService {
      * @param loginData contains username and password
      * @return access token
      */
-    @POST("/api/login")
+    @POST("/api/token")
     Call<AuthToken> login(@Body LoginCredentials loginData);
 }
