@@ -6,8 +6,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.segelzwerg.familyfotoandroid.ui.RequiredFieldWatcher;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.Mockito.mock;
@@ -19,7 +19,7 @@ public class TestLoginButton {
     private LoginButton loginButton;
     private RequiredFieldWatcher requiredFieldWatcher;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         loginButton = new LoginButton(context);
