@@ -23,6 +23,13 @@ public class TestUsernameWatcher {
     }
 
     @Test
+    public void testAddRequiredField() {
+        UsernameWatcher usernameWatcher = new UsernameWatcher(loginButton);
+        verify(loginButton, times(1)).addRequiredField(usernameWatcher);
+
+    }
+
+    @Test
     public void testAfterTextChanged() {
         Editable editable = mock(Editable.class);
         when(editable.toString()).thenReturn("abc");
