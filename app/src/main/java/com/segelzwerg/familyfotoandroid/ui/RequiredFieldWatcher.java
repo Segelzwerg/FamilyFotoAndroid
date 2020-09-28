@@ -35,7 +35,7 @@ public abstract class RequiredFieldWatcher implements TextWatcher {
      * Sends the button the current state.
      * @param valid the validation state of the field content
      */
-    void sendState(boolean valid) {
+    protected void sendState(boolean valid) {
         this.valid = valid;
         button.checkState();
     }
