@@ -31,8 +31,6 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextUsername.addTextChangedListener(usernameWatcher);
         editTextPassword.addTextChangedListener(passwordWatcher);
-        submitButton.addRequiredField(usernameWatcher);
-        submitButton.addRequiredField(passwordWatcher);
     }
 
 
