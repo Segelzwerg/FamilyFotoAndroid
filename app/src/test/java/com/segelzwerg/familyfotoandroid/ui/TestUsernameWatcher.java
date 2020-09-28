@@ -18,6 +18,7 @@ public class TestUsernameWatcher {
     private LoginButton loginButton;
     private Editable validEditable;
     private Editable invalidEditable;
+    private UsernameWatcher usernameWatcher;
 
     @BeforeEach
     public void setUp() {
@@ -25,47 +26,43 @@ public class TestUsernameWatcher {
         validEditable = mock(Editable.class);
         invalidEditable = mock(Editable.class);
 
+        usernameWatcher = new UsernameWatcher(loginButton);
+
         when(validEditable.toString()).thenReturn("abc");
         when(invalidEditable.toString()).thenReturn("");
     }
 
     @Test
     public void testAddRequiredField() {
-        UsernameWatcher usernameWatcher = new UsernameWatcher(loginButton);
         verify(loginButton, times(1)).addRequiredField(usernameWatcher);
 
     }
 
     @Test
     public void testAfterTextChanged() {
-        UsernameWatcher usernameWatcher = new UsernameWatcher(loginButton);
         usernameWatcher.afterTextChanged(validEditable);
         verify(loginButton, times(1)).checkState();
     }
 
     @Test
     public void testIsValidIsDefaultFalse() {
-        UsernameWatcher usernameWatcher = new UsernameWatcher(loginButton);
         assertThat(usernameWatcher.isValid()).isFalse();
     }
 
     @Test
     public void testIsValidSwitchTrue() {
-        UsernameWatcher usernameWatcher = new UsernameWatcher(loginButton);
         usernameWatcher.afterTextChanged(validEditable);
         assertThat(usernameWatcher.isValid()).isTrue();
     }
 
     @Test
     public void testIsInvalid() {
-        UsernameWatcher usernameWatcher = new UsernameWatcher(loginButton);
         usernameWatcher.afterTextChanged(invalidEditable);
         assertThat(usernameWatcher.isValid()).isFalse();
     }
 
     @Test
     public void testIsValidSwitchBack() {
-        UsernameWatcher usernameWatcher = new UsernameWatcher(loginButton);
         usernameWatcher.afterTextChanged(validEditable);
         usernameWatcher.afterTextChanged(invalidEditable);
         assertThat(usernameWatcher.isValid()).isFalse();
