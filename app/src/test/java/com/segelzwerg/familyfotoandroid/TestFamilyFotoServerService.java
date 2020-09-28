@@ -1,7 +1,7 @@
 package com.segelzwerg.familyfotoandroid;
 
 import com.segelzwerg.familyfotoandroid.familiyfotoservice.AuthToken;
-import com.segelzwerg.familyfotoandroid.familiyfotoservice.FamilyFotoService;
+import com.segelzwerg.familyfotoandroid.familiyfotoservice.FamilyFotoServerService;
 import com.segelzwerg.familyfotoandroid.familiyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familiyfotoservice.utils.RetrofitClientUtil;
 
@@ -23,15 +23,15 @@ import retrofit2.Response;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class TestFamilyFotoService {
-    private FamilyFotoService familyFotoService;
+public class TestFamilyFotoServerService {
+    private FamilyFotoServerService familyFotoServerService;
     private MockWebServer mockWebServer = new MockWebServer();
 
     @BeforeEach
     public void setUp() throws IOException {
         mockWebServer.start();
-        familyFotoService = RetrofitClientUtil.buildRetrofitInstance(mockWebServer.url("/"))
-                .create(FamilyFotoService.class);
+        familyFotoServerService = RetrofitClientUtil.buildRetrofitInstance(mockWebServer.url("/"))
+                .create(FamilyFotoServerService.class);
     }
 
     @AfterEach
@@ -46,7 +46,7 @@ public class TestFamilyFotoService {
                 .setBody("{token:token}");
         mockWebServer.enqueue(response);
         LoginCredentials credentials = new LoginCredentials("Marcel", "1234");
-        Call<AuthToken> login = familyFotoService.login(credentials);
+        Call<AuthToken> login = familyFotoServerService.login(credentials);
         Response<AuthToken> tokenResponse = login.execute();
         RecordedRequest request = mockWebServer.takeRequest(1, TimeUnit.SECONDS);
 
