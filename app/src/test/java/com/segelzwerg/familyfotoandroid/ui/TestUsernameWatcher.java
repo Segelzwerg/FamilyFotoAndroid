@@ -1,8 +1,7 @@
-package com.segelzwerg.familyfotoandroid;
+package com.segelzwerg.familyfotoandroid.ui;
 
 import android.text.Editable;
 
-import com.segelzwerg.familyfotoandroid.ui.UsernameWatcher;
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 
 import org.junit.jupiter.api.BeforeEach;
