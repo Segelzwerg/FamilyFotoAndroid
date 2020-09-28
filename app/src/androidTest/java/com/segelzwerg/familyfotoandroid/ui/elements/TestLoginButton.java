@@ -1,9 +1,10 @@
-package com.segelzwerg.familyfotoandroid.ui;
+package com.segelzwerg.familyfotoandroid.ui.elements;
 
 import android.content.Context;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.segelzwerg.familyfotoandroid.ui.RequiredFieldWatcher;
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 
 import org.junit.Before;
@@ -25,24 +26,24 @@ public class TestLoginButton {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         loginButton = new LoginButton(context);
 
-        requiredFieldWatcher = mock(RequiredFieldWatcher.class);
+        requiredFieldWatcher = Mockito.mock(RequiredFieldWatcher.class);
         loginButton.addRequiredField(requiredFieldWatcher);
 
     }
 
     @Test
     public void testLoginButton() {
-        when(requiredFieldWatcher.isValid()).thenReturn(true);
+        Mockito.when(requiredFieldWatcher.isValid()).thenReturn(true);
 
         loginButton.checkState();
-        assertThat(loginButton.isEnabled()).isTrue();
+        AssertionsForClassTypes.assertThat(loginButton.isEnabled()).isTrue();
     }
 
     @Test
     public void testLoginButtonNotValid() {
-        when(requiredFieldWatcher.isValid()).thenReturn(false);
+        Mockito.when(requiredFieldWatcher.isValid()).thenReturn(false);
 
         loginButton.checkState();
-        assertThat(loginButton.isEnabled()).isFalse();
+        AssertionsForClassTypes.assertThat(loginButton.isEnabled()).isFalse();
     }
 }
