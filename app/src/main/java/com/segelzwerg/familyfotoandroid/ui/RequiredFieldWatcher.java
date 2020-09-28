@@ -6,12 +6,10 @@ import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Watches required fields in a form.
  */
-@RequiredArgsConstructor
 public abstract class RequiredFieldWatcher implements TextWatcher {
     /**
      * Flag if the typed in field content is valid.
@@ -23,6 +21,15 @@ public abstract class RequiredFieldWatcher implements TextWatcher {
      */
     @NonNull
     private LoginButton button;
+
+    /**
+     * Constructor.
+     * @param button which the field will enabled upon validation.
+     */
+    public RequiredFieldWatcher(LoginButton button) {
+        this.button = button;
+        button.addRequiredField(this);
+    }
 
     /**
      * Sends the button the current state.

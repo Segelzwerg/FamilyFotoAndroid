@@ -5,20 +5,21 @@ import android.text.Editable;
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 
 import lombok.Getter;
-import lombok.NonNull;
 
 /**
  * Watches the username field and validates it.
  */
 @Getter
 public class UsernameWatcher extends RequiredFieldWatcher {
+
+
     /**
      * Constructor.
+     *
      * @param button which the field will enabled upon validation.
      */
-    public UsernameWatcher(@NonNull LoginButton button) {
+    public UsernameWatcher(LoginButton button) {
         super(button);
-        button.addRequiredField(this);
     }
 
     @Override
