@@ -42,7 +42,7 @@ public class PasswordWatcher extends RequiredFieldWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         String password = s.toString();
-        boolean valid = password.length() > MIN_PASSWORD_LENGTH;
+        boolean valid = password.length() >= MIN_PASSWORD_LENGTH;
         sendState(valid);
     }
 }
