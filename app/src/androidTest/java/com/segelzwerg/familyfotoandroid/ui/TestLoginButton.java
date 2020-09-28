@@ -26,14 +26,23 @@ public class TestLoginButton {
         loginButton = new LoginButton(context);
 
         requiredFieldWatcher = mock(RequiredFieldWatcher.class);
+        loginButton.addRequiredField(requiredFieldWatcher);
+
     }
 
     @Test
     public void testLoginButton() {
         when(requiredFieldWatcher.isValid()).thenReturn(true);
-        loginButton.addRequiredField(requiredFieldWatcher);
 
         loginButton.checkState();
         assertThat(loginButton.isEnabled()).isTrue();
+    }
+
+    @Test
+    public void testLoginButtonNotValid() {
+        when(requiredFieldWatcher.isValid()).thenReturn(false);
+
+        loginButton.checkState();
+        assertThat(loginButton.isEnabled()).isFalse();
     }
 }
