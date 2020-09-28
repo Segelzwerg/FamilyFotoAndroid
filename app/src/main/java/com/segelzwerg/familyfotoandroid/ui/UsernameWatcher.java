@@ -1,19 +1,25 @@
 package com.segelzwerg.familyfotoandroid.ui;
 
 import android.text.Editable;
-import android.text.TextWatcher;
+
+import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 
 import lombok.Getter;
+import lombok.NonNull;
 
 /**
  * Watches the username field and validates it.
  */
 @Getter
-public class UsernameWatcher implements TextWatcher {
+public class UsernameWatcher extends RequiredFieldWatcher {
     /**
-     * Flag if the typed in username is valid.
+     * Constructor.
+     * @param button which the field will enabled upon validation.
      */
-    private boolean valid;
+    public UsernameWatcher(@NonNull LoginButton button) {
+        super(button);
+    }
+
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -31,6 +37,7 @@ public class UsernameWatcher implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         String username = s.toString();
-        valid = username.length() > 0;
+        boolean valid = username.length() > 0;
+        sendState(valid);
     }
 }

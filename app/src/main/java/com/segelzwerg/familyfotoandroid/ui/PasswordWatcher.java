@@ -1,22 +1,29 @@
 package com.segelzwerg.familyfotoandroid.ui;
 
 import android.text.Editable;
-import android.text.TextWatcher;
+
+import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 
 import lombok.Getter;
+import lombok.NonNull;
+
 /**
  * Watches the password field and validates it.
  */
 @Getter
-public class PasswordWatcher implements TextWatcher {
+public class PasswordWatcher extends RequiredFieldWatcher {
     /**
      * The minimum required password length.
      */
     public static final int MIN_PASSWORD_LENGTH = 8;
+
     /**
-     * Flag if the typed in password is valid.
+     * Constructor.
+     * @param button which the field will enabled upon validation.
      */
-    private boolean valid;
+    public PasswordWatcher(@NonNull LoginButton button) {
+        super(button);
+    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -35,6 +42,7 @@ public class PasswordWatcher implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         String password = s.toString();
-        valid = password.length() > MIN_PASSWORD_LENGTH;
+        boolean valid = password.length() > MIN_PASSWORD_LENGTH;
+        sendState(valid);
     }
 }
