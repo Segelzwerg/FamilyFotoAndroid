@@ -18,6 +18,7 @@ public class UsernameWatcher extends RequiredFieldWatcher {
      */
     public UsernameWatcher(@NonNull LoginButton button) {
         super(button);
+        button.addRequiredField(this);
     }
 
     @Override
