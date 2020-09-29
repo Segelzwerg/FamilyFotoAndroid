@@ -7,7 +7,7 @@ import retrofit2.http.POST;
 /**
  * Offers request to the FamilyFoto server.
  */
-public interface FamilyFotoService {
+public interface FamilyFotoServerService {
     /**
      * Request to login current user.
      *
