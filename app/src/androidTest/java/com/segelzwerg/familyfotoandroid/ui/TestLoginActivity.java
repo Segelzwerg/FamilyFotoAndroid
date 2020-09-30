@@ -6,7 +6,6 @@ import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 import com.segelzwerg.familyfotoandroid.R;
-import com.segelzwerg.familyfotoandroid.familiyfotoservice.BaseUrlModule;
 
 import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
@@ -18,7 +17,6 @@ import java.io.IOException;
 import javax.net.ssl.HttpsURLConnection;
 
 import dagger.hilt.android.testing.HiltAndroidTest;
-import dagger.hilt.android.testing.UninstallModules;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
@@ -33,7 +31,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.segelzwerg.familyfotoandroid.familiyfotoservice.BaseUrlModule.MOCK_SERVER_PORT;
 
-@UninstallModules(BaseUrlModule.class)
 @HiltAndroidTest
 public class TestLoginActivity {
     @Rule
