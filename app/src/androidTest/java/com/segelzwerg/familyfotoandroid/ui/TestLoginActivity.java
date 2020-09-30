@@ -31,6 +31,7 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static com.segelzwerg.familyfotoandroid.familiyfotoservice.BaseUrlModule.MOCK_SERVER_PORT;
 
 @UninstallModules(BaseUrlModule.class)
 @HiltAndroidTest
@@ -42,7 +43,7 @@ public class TestLoginActivity {
     @BeforeEach
     public void setUp() throws IOException {
         mockWebServer = new MockWebServer();
-        mockWebServer.start(5000);
+        mockWebServer.start(MOCK_SERVER_PORT);
         rule.launchActivity(new Intent());
     }
 
