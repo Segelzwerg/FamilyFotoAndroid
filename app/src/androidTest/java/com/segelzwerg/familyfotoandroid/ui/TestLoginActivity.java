@@ -29,7 +29,7 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static com.segelzwerg.familyfotoandroid.familiyfotoservice.BaseUrlModule.MOCK_SERVER_PORT;
+import static com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule.MOCK_SERVER_PORT;
 
 @HiltAndroidTest
 public class TestLoginActivity {

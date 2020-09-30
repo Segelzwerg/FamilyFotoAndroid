@@ -8,9 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.segelzwerg.familyfotoandroid.R;
-import com.segelzwerg.familyfotoandroid.familiyfotoservice.AuthToken;
-import com.segelzwerg.familyfotoandroid.familiyfotoservice.FamilyFotoServerService;
-import com.segelzwerg.familyfotoandroid.familiyfotoservice.LoginCredentials;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 
 import java.io.IOException;

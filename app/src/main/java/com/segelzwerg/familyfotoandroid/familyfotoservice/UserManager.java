@@ -1,4 +1,4 @@
-package com.segelzwerg.familyfotoandroid.familiyfotoservice;
+package com.segelzwerg.familyfotoandroid.familyfotoservice;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

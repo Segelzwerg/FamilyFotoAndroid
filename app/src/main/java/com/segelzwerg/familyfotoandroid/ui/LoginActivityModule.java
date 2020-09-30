@@ -2,7 +2,7 @@ package com.segelzwerg.familyfotoandroid.ui;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.segelzwerg.familyfotoandroid.familiyfotoservice.FamilyFotoServerService;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
 
 import javax.inject.Singleton;
 

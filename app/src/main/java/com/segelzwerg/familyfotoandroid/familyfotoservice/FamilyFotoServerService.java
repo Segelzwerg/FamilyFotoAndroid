@@ -1,4 +1,4 @@
-package com.segelzwerg.familyfotoandroid.familiyfotoservice;
+package com.segelzwerg.familyfotoandroid.familyfotoservice;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

@@ -8,8 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.segelzwerg.familyfotoandroid.familiyfotoservice.LoginCredentials;
-import com.segelzwerg.familyfotoandroid.familiyfotoservice.UserManager;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
 
 /**
  * The main activity of this app.
