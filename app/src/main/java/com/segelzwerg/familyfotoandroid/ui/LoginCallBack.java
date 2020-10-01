@@ -8,7 +8,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static androidx.core.content.ContextCompat.startActivity;
 
 class LoginCallBack<AuthToken> implements Callback<AuthToken> {
     private final Context context;
@@ -24,7 +23,7 @@ class LoginCallBack<AuthToken> implements Callback<AuthToken> {
     @Override
     public void onResponse(Call<AuthToken> call, Response<AuthToken> response) {
         Intent intent = new Intent(context, MainActivity.class);
-        startActivity(context, intent, null);
+        context.startActivity(intent, null);
     }
 
     /**
