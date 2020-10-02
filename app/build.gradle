@@ -4,6 +4,7 @@ apply plugin: 'pmd'
 apply plugin: 'checkstyle'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'project-report'
+apply plugin: 'jacoco'
 
 import io.franzbecker.gradle.lombok.task.DelombokTask
 
@@ -118,6 +119,30 @@ task javadoc(type: Javadoc) {
     failOnError = false
 }
 
+task jacocoReport(type: JacocoReport) {
+    reports {
+        xml {
+            enabled true // coveralls plugin depends on xml format report
+        }
+
+        html {
+            enabled true
+        }
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**/*_MembersInjector.class',
+                              '**/Dagger*Component*.class',
+                              '**/Dagger*Subcomponent*.class',
+                              '**/*Subcomponent$Builder.class',
+                              '**/*Module_*Factory.class'])
+        }))
+    }
+}
+
 tasks.check.dependsOn(tasks.pmd)
 tasks.check.dependsOn(tasks.checkstyle)
 tasks.javadoc.dependsOn(tasks.check)
+tasks.jacocoReport.dependsOn(tasks.check)
