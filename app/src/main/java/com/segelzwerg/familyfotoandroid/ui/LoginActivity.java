@@ -2,7 +2,6 @@ package com.segelzwerg.familyfotoandroid.ui;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +11,7 @@ import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
+import com.segelzwerg.familyfotoandroid.ui.elements.RequiredField;
 
 import javax.inject.Inject;
 
@@ -33,11 +33,11 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Text field for username input.
      */
-    private transient EditText editTextUsername;
+    private transient RequiredField editTextUsername;
     /**
      * Text field for password input.
      */
-    private transient EditText editTextPassword;
+    private transient RequiredField editTextPassword;
     /**
      * Button for submitting login request.
      */
@@ -68,8 +68,8 @@ public class LoginActivity extends AppCompatActivity {
      * @param view the view object that was clicked.
      */
     public void requestLogin(View view) {
-        String username = editTextUsername.getText().toString();
-        String password = editTextPassword.getText().toString();
+        String username = editTextUsername.getString();
+        String password = editTextPassword.getString();
         LoginCredentials loginCredentials = new LoginCredentials(username, password);
 
         Call<AuthToken> login = server.login(loginCredentials);
