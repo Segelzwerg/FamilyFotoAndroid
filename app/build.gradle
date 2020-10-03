@@ -24,6 +24,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -35,6 +38,13 @@ android {
     }
     packagingOptions {
         exclude("META-INF/LICENSE*")
+    }
+    testOptions {
+        execution 'ANDROID_TEST_ORCHESTRATOR'
+        animationsDisabled true
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 }
 
@@ -52,7 +62,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'com.google.dagger:hilt-android:2.28-alpha'
     annotationProcessor "com.google.dagger:hilt-android-compiler:2.28-alpha"
-
     // (Required) Writing and executing Unit Tests on the JUnit Platform
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
     testImplementation "org.mockito:mockito-core:2.28.2"
@@ -83,6 +92,15 @@ dependencies {
     androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.2.0")
 
 }
+
+jacoco {
+    toolVersion = '0.8.5'
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
 
 task checkstyle(type: Checkstyle) {
     group 'verification'
