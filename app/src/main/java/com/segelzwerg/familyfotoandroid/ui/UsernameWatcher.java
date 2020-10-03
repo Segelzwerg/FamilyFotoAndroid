@@ -24,12 +24,12 @@ public class UsernameWatcher extends RequiredFieldWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence sequence, int start, int count, int after) {
-
+        //not implemented
     }
 
     @Override
     public void onTextChanged(CharSequence sequence, int start, int before, int count) {
-
+        //not implemented
     }
 
     /**
