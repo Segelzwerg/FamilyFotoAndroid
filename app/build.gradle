@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'de.mannodermaus.android-junit5'
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
+apply plugin: 'dagger.hilt.android.plugin'
 
 import io.franzbecker.gradle.lombok.task.DelombokTask
 
@@ -29,19 +30,26 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        exclude("META-INF/LICENSE*")
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'com.google.dagger:hilt-android:2.28-alpha'
+    annotationProcessor "com.google.dagger:hilt-android-compiler:2.28-alpha"
     // (Required) Writing and executing Unit Tests on the JUnit Platform
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.2"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.6.2"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
+    androidTestAnnotationProcessor 'com.google.dagger:hilt-android-compiler:2.28-alpha'
 }
 
 task checkstyle(type: Checkstyle) {
