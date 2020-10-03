@@ -3,6 +3,7 @@ apply plugin: 'de.mannodermaus.android-junit5'
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'jacoco'
 
 import io.franzbecker.gradle.lombok.task.DelombokTask
 
@@ -50,7 +51,10 @@ dependencies {
     testImplementation "org.assertj:assertj-core:3.17.2"
     testImplementation "com.squareup.okhttp3:mockwebserver:4.9.0"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+
+    androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
+    androidTestImplementation 'org.mockito:mockito-android:2.23.4'
+    androidTestImplementation "org.assertj:assertj-core:3.17.2"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.3.0"
 
