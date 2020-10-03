@@ -9,6 +9,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
+/**
+ * Handles call backs after login requests.
+ * @param <AuthToken> the returned authentication token.
+ */
 class LoginCallBack<AuthToken> implements Callback<AuthToken> {
     /**
      * Context from where the Callback is called.
