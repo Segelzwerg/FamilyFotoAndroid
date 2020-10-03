@@ -62,6 +62,8 @@ public class LoginButton extends AppCompatButton {
     /**
      * Checks if all required fields are valid.
      */
+    //This is a stream, so no violation.
+    @SuppressWarnings("PMD.LawOfDemeter")
     public void checkState() {
         boolean enabled = requiredFields.stream()
                 .allMatch(RequiredFieldWatcher::isValid);
