@@ -38,10 +38,6 @@ public class LoginActivity extends AppCompatActivity {
      * Text field for password input.
      */
     private transient RequiredField editTextPassword;
-    /**
-     * Button for submitting login request.
-     */
-    private transient LoginButton submitButton;
 
     /**
      * {@inheritDoc}
@@ -53,7 +49,8 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextUsername = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
-        submitButton = findViewById(R.id.login);
+
+        LoginButton submitButton = findViewById(R.id.login);
 
         UsernameWatcher usernameWatcher = new UsernameWatcher(submitButton);
         PasswordWatcher passwordWatcher = new PasswordWatcher(submitButton);
