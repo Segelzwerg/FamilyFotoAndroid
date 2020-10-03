@@ -34,6 +34,8 @@ jobs:
       with:
         name: test-reports
         path: app/build/reports
+    - name: Create jacoco reports
+      run: ./gradlew jacocoTestReport
     - name: Upload to codecoverage
       uses: codecov/codecov-action@v1
       with:
