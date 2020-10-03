@@ -13,6 +13,7 @@ import retrofit2.Response;
 
 /**
  * Handles call backs after login requests.
+ * @param <T> token that is returned from server
  */
 class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
     /**
