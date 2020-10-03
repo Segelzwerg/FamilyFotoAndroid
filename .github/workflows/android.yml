@@ -13,6 +13,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Load Cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.gradle/caches
+        key: gradle-${{ hashFiles('**/*.gradle') }}
+        restore-keys: |
+          gradle-
     - name: set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -27,3 +34,12 @@ jobs:
       with:
         name: test-reports
         path: app/build/reports
+    - name: Create jacoco reports
+      run: ./gradlew jacocoTestReport
+    - name: Upload to codecoverage
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./app/build/reports/jacoco/jacocoTestReportDebug/jacocoTestReportDebug.xml
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
+
