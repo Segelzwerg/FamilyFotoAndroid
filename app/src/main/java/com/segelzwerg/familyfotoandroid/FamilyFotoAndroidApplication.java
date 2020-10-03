@@ -8,12 +8,4 @@ import dagger.hilt.android.HiltAndroidApp;
  * Application as an entry point for hilt.
  */
 @HiltAndroidApp
-public class FamilyFotoAndroidApplication extends Application {
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-}
+public class FamilyFotoAndroidApplication extends Application { }
