@@ -19,7 +19,7 @@ public class LoginButton extends AppCompatButton {
     /**
      * List of input fields which must be valid before button activation.
      */
-    private transient List<RequiredFieldWatcher> requiredFields = new ArrayList<>();
+    private final transient List<RequiredFieldWatcher> requiredFields = new ArrayList<>();
 
     /**
      * Constructor.

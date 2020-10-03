@@ -20,7 +20,7 @@ public abstract class RequiredFieldWatcher implements TextWatcher {
      * The button which will be activated if field is valid.
      */
     @NonNull
-    private transient LoginButton button;
+    private final transient LoginButton button;
 
     /**
      * Constructor.
