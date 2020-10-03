@@ -13,8 +13,6 @@ import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerServic
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -28,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Handles request to the family foto server.
      */
+    // Dagger can't inject in private fields.
+    @SuppressWarnings("checkstyle:VisibilityModifier")
     @Inject
     FamilyFotoServerService server;
 
@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
      * Requests login to family foto server.
      * @param view the view object that was clicked.
      */
-    public void requestLogin(View view) throws IOException {
+    public void requestLogin(View view) {
         EditText editTextUsername = findViewById(R.id.username);
         EditText editTextPassword = findViewById(R.id.password);
         String username = editTextUsername.getText().toString();

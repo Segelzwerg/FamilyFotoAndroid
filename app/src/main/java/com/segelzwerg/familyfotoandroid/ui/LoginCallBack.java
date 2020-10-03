@@ -10,9 +10,12 @@ import retrofit2.Response;
 
 
 class LoginCallBack<AuthToken> implements Callback<AuthToken> {
+    /**
+     * Context from where the Callback is called.
+     */
     private final Context context;
 
-    public LoginCallBack(Context context) {
+    LoginCallBack(Context context) {
         this.context = context;
     }
 

@@ -4,10 +4,22 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+/**
+ * {@inheritDoc}.
+ */
 public class FamilyFotoService extends Service {
+    /**
+     * lock mechanism.
+     */
     private static final Object LOCK = new Object();
+    /**
+     * Handles account authentication.
+     */
     private FamilyFotoAuthenticator authenticator;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,6 +31,9 @@ public class FamilyFotoService extends Service {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IBinder onBind(Intent intent) {
         return null;
