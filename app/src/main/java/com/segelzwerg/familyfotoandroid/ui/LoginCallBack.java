@@ -3,6 +3,8 @@ package com.segelzwerg.familyfotoandroid.ui;
 import android.content.Context;
 import android.content.Intent;
 
+import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+
 import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,9 +13,8 @@ import retrofit2.Response;
 
 /**
  * Handles call backs after login requests.
- * @param <AuthToken> the returned authentication token.
  */
-class LoginCallBack<AuthToken> implements Callback<AuthToken> {
+class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
     /**
      * Context from where the Callback is called.
      */
