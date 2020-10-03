@@ -1,7 +1,5 @@
 package com.segelzwerg.familyfotoandroid.ui;
 
-import android.text.Editable;
-
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 
 import lombok.Getter;
@@ -37,12 +35,11 @@ public class PasswordWatcher extends RequiredFieldWatcher {
 
     /**
      * Validates the password after the user typed it in.
-     * @param editable the editable text which will be watch.
+     * @param input to validate
      */
     @Override
-    public void afterTextChanged(Editable editable) {
-        String password = editable.toString();
-        boolean valid = password.length() >= MIN_PASSWORD_LENGTH;
+    protected void validateInput(String input) {
+        boolean valid = input.length() >= MIN_PASSWORD_LENGTH;
         sendState(valid);
     }
 }

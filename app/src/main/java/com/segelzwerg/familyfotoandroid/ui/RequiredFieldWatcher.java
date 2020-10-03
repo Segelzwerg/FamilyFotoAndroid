@@ -1,5 +1,6 @@
 package com.segelzwerg.familyfotoandroid.ui;
 
+import android.text.Editable;
 import android.text.TextWatcher;
 
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
@@ -39,4 +40,19 @@ public abstract class RequiredFieldWatcher implements TextWatcher {
         this.valid = valid;
         button.checkState();
     }
+
+    /**
+     * Validates the input.
+     * @param editable the input to validate
+     */
+    @Override
+    public void afterTextChanged(Editable editable) {
+        validateInput(editable.toString());
+    }
+
+    /**
+     * Validates the input. Must be implemented in subclasses.
+     * @param input the string to validate.
+     */
+    protected abstract void validateInput(String input);
 }
