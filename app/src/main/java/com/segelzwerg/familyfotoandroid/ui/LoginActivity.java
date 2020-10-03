@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     // Dagger can't inject in private fields.
     @SuppressWarnings("checkstyle:VisibilityModifier")
     @Inject
-    FamilyFotoServerService server;
+    transient FamilyFotoServerService server;
 
     /**
      * {@inheritDoc}

@@ -13,7 +13,7 @@ class LoginCallBack<AuthToken> implements Callback<AuthToken> {
     /**
      * Context from where the Callback is called.
      */
-    private final Context context;
+    private final transient Context context;
 
     LoginCallBack(Context context) {
         this.context = context;

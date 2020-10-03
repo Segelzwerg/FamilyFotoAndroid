@@ -15,7 +15,7 @@ public class FamilyFotoService extends Service {
     /**
      * Handles account authentication.
      */
-    private FamilyFotoAuthenticator authenticator;
+    private transient FamilyFotoAuthenticator authenticator;
 
     /**
      * {@inheritDoc}

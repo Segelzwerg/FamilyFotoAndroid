@@ -17,7 +17,7 @@ public class FamilyFotoAuthenticator extends AbstractAccountAuthenticator {
     /**
      * The context where the authenticator is initialized.
      */
-    private final Context mContext;
+    private final transient Context mContext;
 
     /**
      * Constructor.
