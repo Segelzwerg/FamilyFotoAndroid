@@ -1,6 +1,5 @@
 package com.segelzwerg.familyfotoandroid.ui;
 
-import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -27,9 +26,8 @@ public class MainActivity extends AppCompatActivity {
         AccountManager accountManager = AccountManager.get(this);
         UserManager userManager = new UserManager(accountManager);
         userManager.saveAccount(new LoginCredentials("marcel", "1234"));
-        Account[] accounts = accountManager.getAccounts();
 
-        String welcomeText = String.format("Welcome %s to Family Foto!", accounts[0].name);
+        String welcomeText = "Welcome to Family Foto!";
         welcomeTextView.setText(welcomeText);
         setContentView(welcomeTextView);
     }
