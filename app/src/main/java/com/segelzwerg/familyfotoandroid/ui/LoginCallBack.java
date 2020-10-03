@@ -34,8 +34,8 @@ class LoginCallBack<AuthToken> implements Callback<AuthToken> {
      **/
     @SneakyThrows
     @Override
-    public void onFailure(Call<AuthToken> call, Throwable t) {
-        throw t;
+    public void onFailure(Call<AuthToken> call, Throwable throwable) {
+        throw throwable;
     }
 
 }
