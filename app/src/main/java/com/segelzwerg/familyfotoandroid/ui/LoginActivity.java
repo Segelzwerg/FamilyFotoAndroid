@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
      * Handles request to the family foto server.
      */
     // Dagger can't inject in private fields.
-    @SuppressWarnings("checkstyle:VisibilityModifier")
+    @SuppressWarnings({"checkstyle:VisibilityModifier","PMD.DefaultPackage"})
     @Inject
     transient FamilyFotoServerService server;
 
