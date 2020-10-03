@@ -27,9 +27,21 @@ public class LoginActivity extends AppCompatActivity {
      * Handles request to the family foto server.
      */
     // Dagger can't inject in private fields.
-    @SuppressWarnings({"checkstyle:VisibilityModifier","PMD.DefaultPackage"})
+    @SuppressWarnings({"checkstyle:VisibilityModifier", "PMD.DefaultPackage"})
     @Inject
     transient FamilyFotoServerService server;
+    /**
+     * Text field for username input.
+     */
+    private transient EditText editTextUsername;
+    /**
+     * Text field for password input.
+     */
+    private transient EditText editTextPassword;
+    /**
+     * Button for submitting login request.
+     */
+    private transient LoginButton submitButton;
 
     /**
      * {@inheritDoc}
@@ -39,9 +51,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText editTextUsername = findViewById(R.id.username);
-        EditText editTextPassword = findViewById(R.id.password);
-        LoginButton submitButton = findViewById(R.id.login);
+        editTextUsername = findViewById(R.id.username);
+        editTextPassword = findViewById(R.id.password);
+        submitButton = findViewById(R.id.login);
 
         UsernameWatcher usernameWatcher = new UsernameWatcher(submitButton);
         PasswordWatcher passwordWatcher = new PasswordWatcher(submitButton);
@@ -56,8 +68,6 @@ public class LoginActivity extends AppCompatActivity {
      * @param view the view object that was clicked.
      */
     public void requestLogin(View view) {
-        EditText editTextUsername = findViewById(R.id.username);
-        EditText editTextPassword = findViewById(R.id.password);
         String username = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();
         LoginCredentials loginCredentials = new LoginCredentials(username, password);
