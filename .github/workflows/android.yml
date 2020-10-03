@@ -34,3 +34,12 @@ jobs:
       with:
         name: test-reports
         path: app/build/reports
+    - name: Create jacoco reports
+      run: ./gradlew jacocoTestReport
+    - name: Upload to codecoverage
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./app/build/reports/jacoco/jacocoTestReportDebug/jacocoTestReportDebug.xml
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
+
