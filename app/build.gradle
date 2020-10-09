@@ -3,6 +3,7 @@ apply plugin: 'de.mannodermaus.android-junit5'
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'project-report'
 apply plugin: 'jacoco'
 
 import io.franzbecker.gradle.lombok.task.DelombokTask
@@ -43,6 +44,12 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation "com.google.dagger:hilt-android:2.28-alpha"
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
