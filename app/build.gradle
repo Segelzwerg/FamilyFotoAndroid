@@ -39,13 +39,6 @@ android {
     packagingOptions {
         exclude("META-INF/LICENSE*")
     }
-    testOptions {
-        execution 'ANDROID_TEST_ORCHESTRATOR'
-        animationsDisabled true
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
 }
 
 dependencies {
@@ -88,6 +81,7 @@ dependencies {
 
 
     // 6) The instrumentation test companion libraries
+    androidTestImplementation "org.junit.platform:junit-platform-suite-api:1.7.0"
     androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.2.0")
     androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.2.0")
 
@@ -155,7 +149,8 @@ task jacocoReport(type: JacocoReport) {
                               '**/Dagger*Component*.class',
                               '**/Dagger*Subcomponent*.class',
                               '**/*Subcomponent$Builder.class',
-                              '**/*Module_*Factory.class'])
+                              '**/*Module_*Factory.class',
+                              '**/*_HiltComponents*.class'])
         }))
     }
 }
@@ -164,3 +159,4 @@ tasks.check.dependsOn(tasks.pmd)
 tasks.check.dependsOn(tasks.checkstyle)
 tasks.javadoc.dependsOn(tasks.check)
 tasks.jacocoReport.dependsOn(tasks.check)
+tasks.jacocoReport.dependsOn(tasks.connectedCheck)
