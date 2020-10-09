@@ -28,11 +28,6 @@ jobs:
       run: ./gradlew build
     - name: Unit tests
       run: ./gradlew check
-    - name: Instrumental Tests
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: 26
-        script: ./gradlew connectedCheck
     - name: Save Test Reports
       uses: actions/upload-artifact@v2
       if: always()
