@@ -30,3 +30,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.DS_Store
+/captures
+.externalNativeBuild
+.cxx
+.gradle
+/local.properties
