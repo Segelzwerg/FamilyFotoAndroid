@@ -4,7 +4,7 @@ Thank you very much for contributing.
 
 ## How to?
 
-* Please fork the project
+* Please fork the project (from (develop)[https://github.com/segelzwerg/familyfotoandroid/tree/develop])
 * Work on the code in the fork
 * Create a Pull Request to the main project
 
