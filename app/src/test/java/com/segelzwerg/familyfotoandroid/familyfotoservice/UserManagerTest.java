@@ -6,7 +6,7 @@ import android.accounts.AccountManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -15,18 +15,22 @@ import static org.mockito.Mockito.verify;
 
 public class UserManagerTest {
 
+    public static final String ACCOUNT_TYPE = "com.segelzwerg.familyfotoandroid";
     private AccountManager accountManager;
+    private LoginCredentials credentials;
+    private Account account;
 
     @BeforeEach
     public void setUp() {
         accountManager = mock(AccountManager.class);
+        credentials = new LoginCredentials("marcel", "123123");
+        account = new Account(credentials.getUsername(), ACCOUNT_TYPE);
     }
 
     @Test
     public void saveAccount() {
-        LoginCredentials credentials = new LoginCredentials("marcel", "123123");
         UserManager userManager = new UserManager(accountManager);
-        userManager.saveAccount(credentials);
+        Account savedUser = userManager.saveAccount(credentials);
         verify(accountManager, times(1))
                 .addAccountExplicitly(any(Account.class),
                 eq(credentials.getPassword()),
