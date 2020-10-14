@@ -2,6 +2,9 @@ package com.segelzwerg.familyfotoandroid.familyfotoservice;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerFuture;
+import android.app.Activity;
+import android.os.Bundle;
 
 import lombok.AllArgsConstructor;
 
@@ -10,6 +13,10 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 public class UserManager {
+    /**
+     * The account type used in this application.
+     */
+    private static final String ACCOUNT_TYPE = "com.segelzwerg.familyfotoandroid";
     /**
      * Androids account manager.
      */
@@ -22,10 +29,33 @@ public class UserManager {
      */
     public Account saveAccount(LoginCredentials credentials) {
         Account account = new Account(credentials.getUsername(),
-                "com.segelzwerg.familyfotoandroid");
+                ACCOUNT_TYPE);
         this.accountManager.addAccountExplicitly(account, credentials.getPassword(), null);
         return account;
     }
 
+    /**
+     * Retrieves the {@link AuthToken} for an user.
+     * @param account the {@link Account} for whom the {@link AuthToken} should be returned
+     * @param activity which activity needs the {@link AuthToken}
+     * @return {@link AuthToken} for the user
+     * @throws Exception is thrown if the user can not authenticate,
+     *      or if the operation is canceled,
+     *      or the input was invalid
+     */
+    public AuthToken getAuthToken(Account account, Activity activity) throws Exception {
+        AccountManagerFuture<Bundle> accountManagerAuthToken = accountManager.getAuthToken(account,
+                ACCOUNT_TYPE,
+                null,
+                activity,
+                null,
+                null);
+        return tokenFromResult(accountManagerAuthToken);
+    }
 
+    private AuthToken tokenFromResult(AccountManagerFuture<Bundle> managerFuture) throws Exception {
+        Bundle result = managerFuture.getResult();
+        String tokenString = result.getString(AccountManager.KEY_AUTHTOKEN);
+        return new AuthToken(tokenString);
+    }
 }
