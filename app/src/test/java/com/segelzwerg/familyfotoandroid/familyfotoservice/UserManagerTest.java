@@ -35,5 +35,13 @@ public class UserManagerTest {
                 .addAccountExplicitly(any(Account.class),
                 eq(credentials.getPassword()),
                 eq(null));
+        assertThat(savedUser).usingRecursiveComparison().isEqualTo(account);
+    }
+    @Test
+    public void getAuthToken() {
+        UserManager userManager = new UserManager(accountManager);
+        AuthToken expectedToken = new AuthToken("token");
+        AuthToken token = userManager.getAuthToken(account);
+        assertThat(token).isEqualTo(expectedToken);
     }
 }
