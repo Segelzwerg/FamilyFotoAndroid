@@ -18,10 +18,14 @@ public class UserManager {
     /**
      * Saves the user credentials at the device.
      * @param credentials contains user's name and password.
+     * @return the save Account
      */
-    public void saveAccount(LoginCredentials credentials) {
+    public Account saveAccount(LoginCredentials credentials) {
         Account account = new Account(credentials.getUsername(),
                 "com.segelzwerg.familyfotoandroid");
         this.accountManager.addAccountExplicitly(account, credentials.getPassword(), null);
+        return account;
     }
+
+
 }
