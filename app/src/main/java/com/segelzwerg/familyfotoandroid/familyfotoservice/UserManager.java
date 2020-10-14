@@ -6,6 +6,8 @@ import android.accounts.AccountManagerFuture;
 import android.app.Activity;
 import android.os.Bundle;
 
+import org.jetbrains.annotations.NotNull;
+
 import lombok.AllArgsConstructor;
 
 /**
@@ -50,11 +52,16 @@ public class UserManager {
                 activity,
                 null,
                 null);
-        return tokenFromResult(accountManagerAuthToken);
+        return extractResults(accountManagerAuthToken);
     }
 
-    private AuthToken tokenFromResult(AccountManagerFuture<Bundle> managerFuture) throws Exception {
+    private AuthToken extractResults(AccountManagerFuture<Bundle> managerFuture) throws Exception {
         Bundle result = managerFuture.getResult();
+        return tokenFromResults(result);
+    }
+
+    @NotNull
+    private AuthToken tokenFromResults(Bundle result) {
         String tokenString = result.getString(AccountManager.KEY_AUTHTOKEN);
         return new AuthToken(tokenString);
     }
