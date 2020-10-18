@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.ManagerExtractionException;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
 
 /**
@@ -47,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Gets the auth token for the current user.
      * @return {@link AuthToken}
-     * @throws Exception collections of things can go wrong.
+     * @throws ManagerExtractionException the auth token could not be extracted from the response
      */
-    public AuthToken getAuthToken() throws Exception {
+    public AuthToken getAuthToken() throws ManagerExtractionException {
         return userManager.getAuthToken(account);
     }
 }

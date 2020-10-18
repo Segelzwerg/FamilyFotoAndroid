@@ -3,10 +3,13 @@ package com.segelzwerg.familyfotoandroid.familyfotoservice;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.os.Bundle;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -42,11 +45,11 @@ public class UserManager {
      * Retrieves the {@link AuthToken} for an user.
      * @param account the {@link Account} for whom the {@link AuthToken} should be returned
      * @return {@link AuthToken} for the user
-     * @throws Exception is thrown if the user can not authenticate,
+     * @throws ManagerExtractionException is thrown if the user can not authenticate,
      *      or if the operation is canceled,
      *      or the input was invalid
      */
-    public AuthToken getAuthToken(Account account) throws Exception {
+    public AuthToken getAuthToken(Account account) throws ManagerExtractionException {
         AccountManagerFuture<Bundle> accountManagerAuthToken = accountManager.getAuthToken(account,
                 ACCOUNT_TYPE,
                 null,
@@ -56,9 +59,15 @@ public class UserManager {
         return extractResults(accountManagerAuthToken);
     }
 
-    private AuthToken extractResults(AccountManagerFuture<Bundle> managerFuture) throws Exception {
-        Bundle result = managerFuture.getResult();
-        return tokenFromResults(result);
+    private AuthToken extractResults(AccountManagerFuture<Bundle> managerFuture) throws ManagerExtractionException {
+        try {
+            Bundle result = managerFuture.getResult();
+            return tokenFromResults(result);
+
+        } catch (AuthenticatorException | IOException | OperationCanceledException e) {
+            String message = String.format("Could not get response from %s", managerFuture);
+            throw new ManagerExtractionException(message, e);
+        }
     }
 
     @NotNull
