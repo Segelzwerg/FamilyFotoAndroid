@@ -5,7 +5,6 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
-import android.app.Activity;
 import android.os.Bundle;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +40,7 @@ public class UserManagerTest {
         when(accountManager.getAuthToken(eq(account),
                 eq(ACCOUNT_TYPE),
                 eq(null),
-                any(Activity.class),
+                eq(true),
                 eq(null),
                 eq(null))).thenReturn(accountManagerFuture);
     }
