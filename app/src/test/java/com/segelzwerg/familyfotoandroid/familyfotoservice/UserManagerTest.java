@@ -57,10 +57,10 @@ public class UserManagerTest {
         assertThat(savedUser).usingRecursiveComparison().isEqualTo(account);
     }
     @Test
-    public void getAuthToken() throws AuthenticatorException, OperationCanceledException, IOException {
+    public void getAuthToken() throws Exception {
         UserManager userManager = new UserManager(accountManager);
         AuthToken expectedToken = new AuthToken(TOKEN_VALUE);
-        AuthToken token = userManager.getAuthToken(account, mock(Activity.class));
+        AuthToken token = userManager.getAuthToken(account);
         assertThat(token).isEqualTo(expectedToken);
     }
 }
