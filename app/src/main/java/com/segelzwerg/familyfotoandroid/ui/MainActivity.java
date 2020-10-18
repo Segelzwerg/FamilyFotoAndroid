@@ -20,11 +20,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Manages account provides by Google API.
      */
-    private UserManager userManager;
+    private transient UserManager userManager;
     /**
      * Current user account.
      */
-    private Account account;
+    private transient Account account;
 
     /**
      * {@inheritDoc}

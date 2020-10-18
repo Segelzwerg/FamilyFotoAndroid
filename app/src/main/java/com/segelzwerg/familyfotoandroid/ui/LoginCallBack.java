@@ -28,11 +28,11 @@ class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
     /**
      * Handles all sorts of user request with Google API.
      */
-    private final UserManager userManager;
+    private final transient UserManager userManager;
     /**
      * The login credentials typed in the login form.
      */
-    private final LoginCredentials loginCredentials;
+    private final transient LoginCredentials loginCredentials;
 
     LoginCallBack(Context context, UserManager userManager, LoginCredentials loginCredentials) {
         this.context = context;

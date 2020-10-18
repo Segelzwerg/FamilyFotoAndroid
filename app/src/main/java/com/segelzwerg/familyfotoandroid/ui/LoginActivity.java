@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Handles request to the Google account API.
      */
-    private UserManager userManager;
+    private transient UserManager userManager;
 
     /**
      * {@inheritDoc}
