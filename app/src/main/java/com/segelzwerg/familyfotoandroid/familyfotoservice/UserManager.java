@@ -3,10 +3,12 @@ package com.segelzwerg.familyfotoandroid.familyfotoservice;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
-import android.app.Activity;
 import android.os.Bundle;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 import lombok.AllArgsConstructor;
 
@@ -18,7 +20,7 @@ public class UserManager {
     /**
      * The account type used in this application.
      */
-    private static final String ACCOUNT_TYPE = "com.segelzwerg.familyfotoandroid";
+    public static final String ACCOUNT_TYPE = "com.segelzwerg.familyfotoandroid";
     /**
      * Androids account manager.
      */
@@ -39,17 +41,16 @@ public class UserManager {
     /**
      * Retrieves the {@link AuthToken} for an user.
      * @param account the {@link Account} for whom the {@link AuthToken} should be returned
-     * @param activity which activity needs the {@link AuthToken}
      * @return {@link AuthToken} for the user
      * @throws Exception is thrown if the user can not authenticate,
      *      or if the operation is canceled,
      *      or the input was invalid
      */
-    public AuthToken getAuthToken(Account account, Activity activity) throws Exception {
+    public AuthToken getAuthToken(Account account) throws Exception {
         AccountManagerFuture<Bundle> accountManagerAuthToken = accountManager.getAuthToken(account,
                 ACCOUNT_TYPE,
                 null,
-                activity,
+                true,
                 null,
                 null);
         return extractResults(accountManagerAuthToken);
@@ -64,5 +65,27 @@ public class UserManager {
     private AuthToken tokenFromResults(Bundle result) {
         String tokenString = result.getString(AccountManager.KEY_AUTHTOKEN);
         return new AuthToken(tokenString);
+    }
+
+    /**
+     * Saves the auth token for an user.
+     * @param account to which the token belongs.
+     * @param authToken the token itself.
+     */
+    public void saveAuthToken(Account account, AuthToken authToken) {
+        accountManager.setAuthToken(account, ACCOUNT_TYPE, authToken.getToken());
+    }
+
+    /**
+     * Gets the account for a given username.
+     * @param username name of the request account.
+     * @return {@link Account}
+     */
+    public Account getAccount(String username) {
+        Account[] accounts = accountManager.getAccounts();
+        Optional<Account> optionalAccount = Arrays.stream(accounts)
+                .filter(account -> account.name.equals(username))
+                .findFirst();
+        return optionalAccount.orElse(null);
     }
 }
