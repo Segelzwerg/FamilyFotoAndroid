@@ -81,6 +81,8 @@ public class UserManager {
      * @param username name of the request account.
      * @return {@link Account}
      */
+    // This is a stream and no violation.
+    @SuppressWarnings("PMD.LawOfDemeter")
     public Account getAccount(String username) {
         Account[] accounts = accountManager.getAccounts();
         Optional<Account> optionalAccount = Arrays.stream(accounts)
