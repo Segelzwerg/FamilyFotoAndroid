@@ -20,7 +20,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class UserManagerTest {
+public class TestUserManager {
 
     public static final String ACCOUNT_TYPE = "com.segelzwerg.familyfotoandroid";
     public static final String TOKEN_VALUE = "token";
