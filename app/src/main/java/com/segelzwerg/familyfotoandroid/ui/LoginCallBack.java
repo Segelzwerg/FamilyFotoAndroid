@@ -48,7 +48,11 @@ class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
     public void onResponse(Call<AuthToken> call, Response<AuthToken> response) {
         Intent intent = new Intent(context, MainActivity.class);
         Account account = userManager.getAccount(loginCredentials.getUsername());
-        userManager.saveAuthToken(account, Objects.requireNonNull(response.body()));
+        if (account == null) {
+            account = userManager.saveAccount(loginCredentials);
+        }
+        userManager.saveAuthToken(Objects.requireNonNull(account),
+                Objects.requireNonNull(response.body()));
         context.startActivity(intent, null);
     }
 
