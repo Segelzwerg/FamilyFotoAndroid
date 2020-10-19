@@ -160,5 +160,3 @@ task jacocoReport(type: JacocoReport) {
 tasks.check.dependsOn(tasks.pmd)
 tasks.check.dependsOn(tasks.checkstyle)
 tasks.javadoc.dependsOn(tasks.check)
-tasks.jacocoReport.dependsOn(tasks.check)
-tasks.jacocoReport.dependsOn(tasks.connectedCheck)
