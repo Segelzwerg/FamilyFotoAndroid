@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -27,13 +28,14 @@ public class TestUserManager {
     private AccountManager accountManager;
     private LoginCredentials credentials;
     private Account account;
+    private AccountManagerFuture<Bundle> accountManagerFuture;
 
     @BeforeEach
     public void setUp() throws AuthenticatorException, OperationCanceledException, IOException {
         accountManager = mock(AccountManager.class);
         credentials = new LoginCredentials("marcel", "123123");
         account = new Account(credentials.getUsername(), ACCOUNT_TYPE);
-        AccountManagerFuture<Bundle> accountManagerFuture = mock(AccountManagerFuture.class);
+        accountManagerFuture = mock(AccountManagerFuture.class);
         Bundle bundle = mock(Bundle.class);
         when(bundle.getString(AccountManager.KEY_AUTHTOKEN)).thenReturn(TOKEN_VALUE);
         when(accountManagerFuture.getResult()).thenReturn(bundle);
@@ -61,5 +63,29 @@ public class TestUserManager {
         AuthToken expectedToken = new AuthToken(TOKEN_VALUE);
         AuthToken token = userManager.getAuthToken(account);
         assertThat(token).isEqualTo(expectedToken);
+    }
+
+    @Test
+    public void getAuthTokenAuthError() throws AuthenticatorException, OperationCanceledException, IOException {
+        when(accountManagerFuture.getResult()).thenThrow(AuthenticatorException.class);
+        UserManager userManager = new UserManager(accountManager);
+        assertThatExceptionOfType(ManagerExtractionException.class).isThrownBy(() ->
+                userManager.getAuthToken(account));
+    }
+
+    @Test
+    public void getAuthTokenIOError() throws AuthenticatorException, OperationCanceledException, IOException {
+        when(accountManagerFuture.getResult()).thenThrow(IOException.class);
+        UserManager userManager = new UserManager(accountManager);
+        assertThatExceptionOfType(ManagerExtractionException.class).isThrownBy(() ->
+                userManager.getAuthToken(account));
+    }
+
+    @Test
+    public void getAuthTokenOpError() throws AuthenticatorException, OperationCanceledException, IOException {
+        when(accountManagerFuture.getResult()).thenThrow(OperationCanceledException.class);
+        UserManager userManager = new UserManager(accountManager);
+        assertThatExceptionOfType(ManagerExtractionException.class).isThrownBy(() ->
+                userManager.getAuthToken(account));
     }
 }
