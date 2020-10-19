@@ -1,5 +1,6 @@
 package com.segelzwerg.familyfotoandroid.ui;
 
+import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,6 +11,7 @@ import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 import com.segelzwerg.familyfotoandroid.ui.elements.RequiredField;
 
@@ -38,6 +40,10 @@ public class LoginActivity extends AppCompatActivity {
      * Text field for password input.
      */
     private transient RequiredField editTextPassword;
+    /**
+     * Handles request to the Google account API.
+     */
+    private transient UserManager userManager;
 
     /**
      * {@inheritDoc}
@@ -57,6 +63,9 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextUsername.addTextChangedListener(usernameWatcher);
         editTextPassword.addTextChangedListener(passwordWatcher);
+
+        AccountManager accountManager = AccountManager.get(this);
+        userManager = new UserManager(accountManager);
     }
 
 
@@ -70,7 +79,8 @@ public class LoginActivity extends AppCompatActivity {
         LoginCredentials loginCredentials = new LoginCredentials(username, password);
 
         Call<AuthToken> login = server.login(loginCredentials);
-        login.enqueue(new LoginCallBack<>(getApplicationContext()));
+
+        login.enqueue(new LoginCallBack<>(getApplicationContext(), userManager, loginCredentials));
      }
 
 }
