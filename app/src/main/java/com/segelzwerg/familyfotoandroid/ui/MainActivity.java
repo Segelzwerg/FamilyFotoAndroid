@@ -3,7 +3,7 @@ package com.segelzwerg.familyfotoandroid.ui;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activtiy_main);
-        TextView welcomeTextView = findViewById(R.id.welcomeText);
         GalleryLayout gallery = findViewById(R.id.gallery);
 
 
@@ -54,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
         AccountManager accountManager = AccountManager.get(this);
         userManager = new UserManager(accountManager);
         account = userManager.saveAccount(new LoginCredentials("marcel", "1234"));
-
-        String welcomeText = "Welcome to Family Foto!";
-        welcomeTextView.setText(welcomeText);
     }
 
     /**
