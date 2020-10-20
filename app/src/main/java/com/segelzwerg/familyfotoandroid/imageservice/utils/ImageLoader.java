@@ -1,4 +1,4 @@
-package com.segelzwerg.familyfotoandroid.imageService.utils;
+package com.segelzwerg.familyfotoandroid.imageservice.utils;
 
 import android.util.Log;
 

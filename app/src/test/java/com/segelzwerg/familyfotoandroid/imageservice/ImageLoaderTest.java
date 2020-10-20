@@ -1,4 +1,4 @@
-package com.segelzwerg.familyfotoandroid.imageService;
+package com.segelzwerg.familyfotoandroid.imageservice;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static com.segelzwerg.familyfotoandroid.imageService.utils.ImageLoader.loadImages;
+import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImageLoader.loadImages;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ImageLoaderTest {
