@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             List<File> files = ImageLoaderUtil.loadImages("/storage/emulated/0/DCIM/Camera");
             gallery.addImages(files);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("Error", e.getMessage(), e);
         }
 
         AccountManager accountManager = AccountManager.get(this);
