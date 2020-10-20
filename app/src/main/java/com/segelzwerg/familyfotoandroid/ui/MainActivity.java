@@ -25,6 +25,10 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity {
     /**
+     * Path to the camera directory.
+     */
+    private static final String DCIM_PATH = "/storage/emulated/0/DCIM/Camera";
+    /**
      * Manages account provides by Google API.
      */
     private transient UserManager userManager;
@@ -44,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         try {
-            List<File> files = ImageLoaderUtil.loadImages("/storage/emulated/0/DCIM/Camera");
+            List<File> files = ImageLoaderUtil.loadImages(DCIM_PATH);
             gallery.addImages(files);
         } catch (IOException e) {
             Log.e("Error", e.getMessage(), e);
