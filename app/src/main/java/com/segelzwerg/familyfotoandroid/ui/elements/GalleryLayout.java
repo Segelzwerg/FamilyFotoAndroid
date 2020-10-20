@@ -71,6 +71,8 @@ public class GalleryLayout extends LinearLayout {
         files.forEach(this::addImageToView);
     }
 
+    //This is a stream not a LoD violation.
+    @SuppressWarnings("PMD.LawOfDemeter")
     private void addImageToView(File file) {
         if (!file.exists()) {
             String message = String.format("File does not exists: %s", file.getAbsolutePath());
