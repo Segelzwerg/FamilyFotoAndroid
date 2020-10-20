@@ -67,6 +67,8 @@ public class GalleryLayout extends LinearLayout {
      * Adds images to the gallery.
      * @param files list of files to be added
      */
+    //This is a stream not a LoD violation.
+    @SuppressWarnings("PMD.LawOfDemeter")
     public void addImages(List<File> files) {
         files.forEach(this::addImageToView);
     }
