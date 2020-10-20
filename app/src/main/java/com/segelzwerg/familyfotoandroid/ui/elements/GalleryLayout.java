@@ -63,6 +63,10 @@ public class GalleryLayout extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    /**
+     * Adds images to the gallery.
+     * @param files list of files to be added
+     */
     public void addImages(List<File> files) {
         files.forEach(this::addImageToView);
     }
