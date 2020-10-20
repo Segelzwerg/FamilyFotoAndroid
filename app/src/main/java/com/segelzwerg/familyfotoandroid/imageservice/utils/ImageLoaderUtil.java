@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * Loads images from the internal storage.
  */
-public class ImageLoader {
+public class ImageLoaderUtil {
     /**
      * Loads the images and returns them as list.
      * @param path from where the images should be loaded.

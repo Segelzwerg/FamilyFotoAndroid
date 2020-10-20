@@ -13,7 +13,7 @@ import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.ManagerExtractionException;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
-import com.segelzwerg.familyfotoandroid.imageservice.utils.ImageLoader;
+import com.segelzwerg.familyfotoandroid.imageservice.utils.ImageLoaderUtil;
 import com.segelzwerg.familyfotoandroid.ui.elements.GalleryLayout;
 
 import java.io.File;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         try {
-            List<File> files = ImageLoader.loadImages("/storage/emulated/0/DCIM/Camera");
+            List<File> files = ImageLoaderUtil.loadImages("/storage/emulated/0/DCIM/Camera");
             gallery.addImages(files);
         } catch (IOException e) {
             e.printStackTrace();
