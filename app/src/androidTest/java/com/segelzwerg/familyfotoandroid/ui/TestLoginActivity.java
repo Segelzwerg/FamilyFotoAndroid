@@ -103,7 +103,8 @@ public class TestLoginActivity {
                 closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText("12345678"),
                 closeSoftKeyboard());
-        onView(withId(R.id.login)).perform(click());AuthToken expectedToken = new AuthToken("token");
+        onView(withId(R.id.login)).perform(click());
+        AuthToken expectedToken = new AuthToken("token");
         MainActivity mainActivity = (MainActivity)getActivityInstance();
         AuthToken authToken = mainActivity.getAuthToken();
         assertThat(authToken).usingRecursiveComparison().isEqualTo(expectedToken);
