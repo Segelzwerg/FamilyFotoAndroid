@@ -8,16 +8,22 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.ManagerExtractionException;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
+import com.segelzwerg.familyfotoandroid.imageService.utils.ImageLoader;
+import com.segelzwerg.familyfotoandroid.ui.elements.GalleryLayout;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * The main activity of this app.
  */
 public class MainActivity extends AppCompatActivity {
-
     /**
      * Manages account provides by Google API.
      */
@@ -33,8 +39,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activtiy_main);
+        TextView welcomeTextView = findViewById(R.id.welcomeText);
+        GalleryLayout gallery = findViewById(R.id.gallery);
 
-        TextView welcomeTextView = new TextView(this);
+
+        try {
+            List<File> files = ImageLoader.loadImages("/storage/emulated/0/DCIM/Camera");
+            gallery.addImages(files);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         AccountManager accountManager = AccountManager.get(this);
         userManager = new UserManager(accountManager);
@@ -42,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         String welcomeText = "Welcome to Family Foto!";
         welcomeTextView.setText(welcomeText);
-        setContentView(welcomeTextView);
     }
 
     /**
