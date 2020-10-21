@@ -7,7 +7,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 
 /**
- * Adapter for {@link Picasso}
+ * Adapter for {@link Picasso}.
  */
 public class PicassoAdapter {
 
