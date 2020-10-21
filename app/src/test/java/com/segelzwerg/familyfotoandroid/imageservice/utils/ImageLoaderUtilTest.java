@@ -24,12 +24,14 @@ public class ImageLoaderUtilTest {
     @Test
     public void testPathIsNotDirectory() {
         assertThatExceptionOfType(IOException.class)
-                .isThrownBy(() -> ImageLoaderUtil.loadImages("text.txt"));
+                .isThrownBy(() -> ImageLoaderUtil.loadImages("text.txt"))
+        .withMessageContaining("Directory not found");
     }
 
     @Test
     public void testPathIsEmpty() {
         assertThatExceptionOfType(IOException.class)
-                .isThrownBy(() -> ImageLoaderUtil.loadImages("src/test/resources/EmptyDir"));
+                .isThrownBy(() -> ImageLoaderUtil.loadImages("src/test/resources/EmptyDir"))
+        .withMessageContaining("is empty.");
     }
 }
