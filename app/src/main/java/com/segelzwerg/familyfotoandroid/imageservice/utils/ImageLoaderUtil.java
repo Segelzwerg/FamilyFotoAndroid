@@ -25,9 +25,9 @@ public class ImageLoaderUtil {
         }
 
         OnlyImagesFilter onlyImagesFilter = new OnlyImagesFilter();
-        File[] files = imagesDirectory.listFiles(onlyImagesFilter);
+        File[] files = Objects.requireNonNull(imagesDirectory.listFiles(onlyImagesFilter));
 
-        if (Objects.requireNonNull(files).length == 0) {
+        if (files.length == 0) {
             String message = String.format("Directory: %s is empty.",
                     imagesDirectory.getAbsolutePath());
             throw new IOException(message);
