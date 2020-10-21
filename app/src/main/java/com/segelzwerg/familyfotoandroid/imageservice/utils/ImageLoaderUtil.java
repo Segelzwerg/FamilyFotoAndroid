@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -26,7 +27,7 @@ public class ImageLoaderUtil {
         OnlyImagesFilter onlyImagesFilter = new OnlyImagesFilter();
         File[] files = imagesDirectory.listFiles(onlyImagesFilter);
 
-        if (files == null) {
+        if (Objects.requireNonNull(files).length == 0) {
             String message = String.format("Directory: %s is empty.",
                     imagesDirectory.getAbsolutePath());
             throw new IOException(message);
