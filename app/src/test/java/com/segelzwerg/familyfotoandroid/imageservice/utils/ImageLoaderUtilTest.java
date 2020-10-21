@@ -12,14 +12,20 @@ import java.util.List;
 import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImageLoaderUtil.loadImages;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ImageLoaderUtilTest {
+
+    public static final Path RESOURCE_PATH = Paths.get("src/test/resources/");
+    public static final String TEST_IMAGE_JPG = "test-image.jpg";
+    public static final String TEXT_TXT = "text.txt";
+    public static final String EMPTY_DIR = "EmptyDir";
+
     @Test
     public void loadImagesTest() throws IOException {
-        File directory = new File("src/test/resources/");
-        List<File> files = loadImages(directory.getAbsolutePath());
-        File testImage = new File("src/test/resources/" + "test-image.jpg");
+        String absolutePath = String.valueOf(RESOURCE_PATH.toAbsolutePath());
+        List<File> files = loadImages(absolutePath);
+        Path imagePath = Paths.get(RESOURCE_PATH.toString(), TEST_IMAGE_JPG);
+        File testImage = imagePath.toFile();
         assertThat(files).hasSize(1);
         assertThat(files.get(0)).hasSameBinaryContentAs(testImage);
     }
@@ -27,20 +33,20 @@ public class ImageLoaderUtilTest {
     @Test
     public void testPathIsNotDirectory() {
         assertThatExceptionOfType(IOException.class)
-                .isThrownBy(() -> ImageLoaderUtil.loadImages("text.txt"))
-        .withMessageContaining("Directory not found");
+                .isThrownBy(() -> ImageLoaderUtil.loadImages(TEXT_TXT))
+                .withMessageContaining("Directory not found");
     }
 
     @Test
     public void testPathIsEmpty() throws IOException {
-        Path emptyDir = Paths.get("src/test/resources/EmptyDir");
+        Path emptyDir = Paths.get(RESOURCE_PATH.toString(), EMPTY_DIR);
         if (Files.exists(emptyDir)) {
             Files.delete(emptyDir);
         }
         Files.createDirectory(emptyDir);
         assertThatExceptionOfType(IOException.class)
-                .isThrownBy(() -> ImageLoaderUtil.loadImages("src/test/resources/EmptyDir"))
-        .withMessageContaining("is empty.");
+                .isThrownBy(() -> ImageLoaderUtil.loadImages(emptyDir.toString()))
+                .withMessageContaining("is empty.");
         Files.delete(emptyDir);
     }
 }
