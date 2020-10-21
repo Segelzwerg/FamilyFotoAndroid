@@ -1,12 +1,9 @@
 package com.segelzwerg.familyfotoandroid.imageservice.utils;
 
-import android.util.Log;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -23,10 +20,17 @@ public class ImageLoaderUtil {
         File imagesDirectory = new File(path);
         if (!imagesDirectory.isDirectory()) {
             String message = String.format("Directory not found %s", imagesDirectory.toString());
-            Log.e("IO", message);
             throw new IOException(message);
         }
-        File[] files = Objects.requireNonNull(imagesDirectory.listFiles());
+
+        OnlyImagesFilter onlyImagesFilter = new OnlyImagesFilter();
+        File[] files = imagesDirectory.listFiles(onlyImagesFilter);
+
+        if (files == null) {
+            String message = String.format("Directory: %s is empty.",
+                    imagesDirectory.getAbsolutePath());
+            throw new IOException(message);
+        }
         return Arrays.asList(files);
     }
 }
