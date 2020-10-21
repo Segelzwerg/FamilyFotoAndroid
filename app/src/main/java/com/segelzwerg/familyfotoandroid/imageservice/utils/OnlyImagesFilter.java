@@ -12,6 +12,10 @@ public class OnlyImagesFilter implements FilenameFilter {
      */
     @Override
     public boolean accept(File dir, String name) {
-        return name.toLowerCase().endsWith(".jpg");
+        return isJpg(name.toLowerCase());
+    }
+
+    private boolean isJpg(String name) {
+        return name.endsWith(".jpg");
     }
 }
