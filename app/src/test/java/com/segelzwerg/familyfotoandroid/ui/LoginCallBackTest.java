@@ -21,23 +21,23 @@ import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import static com.segelzwerg.familyfotoandroid.utils.ReflectionUtil.setField;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.internal.util.reflection.FieldSetter.setField;
 
 public class LoginCallBackTest {
-
 
     public static final String ACCOUNT_TYPE = "com.segelzwerg.familyfotoandroid";
     private LoginCallBack<AuthToken> loginCallBack;
     private Context context;
 
     @BeforeEach
-    public void setUp() throws AuthenticatorException, OperationCanceledException, IOException, NoSuchFieldException {
+    public void setUp() throws AuthenticatorException, OperationCanceledException, IOException,
+            NoSuchFieldException, IllegalAccessException {
         context = mock(Context.class);
         LoginCredentials loginCredentials = new LoginCredentials("marcel", "1234");
         AccountManager accountManager = mock(AccountManager.class);
@@ -46,7 +46,8 @@ public class LoginCallBackTest {
         when(bundle.getString(AccountManager.KEY_AUTHTOKEN)).thenReturn("token");
         when(managerFuture.getResult()).thenReturn(bundle);
         Account account = mock(Account.class);
-        setField(account, Account.class.getField("name"), "marcel");
+        setField(Account.class ,account, "name", "marcel");
+        setField(Account.class, account, "type", ACCOUNT_TYPE);
         Account[] accounts = {account};
         when(accountManager.getAccounts()).thenReturn(accounts);
         when(accountManager.getAuthToken(eq(account),
