@@ -3,21 +3,31 @@ package com.segelzwerg.familyfotoandroid.ui;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.ManagerExtractionException;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
+import com.segelzwerg.familyfotoandroid.imageservice.utils.ImageLoaderUtil;
+import com.segelzwerg.familyfotoandroid.ui.elements.GalleryLayout;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * The main activity of this app.
  */
 public class MainActivity extends AppCompatActivity {
-
+    /**
+     * Path to the camera directory.
+     */
+    private static final String DCIM_PATH = "/storage/emulated/0/DCIM/Camera";
     /**
      * Manages account provides by Google API.
      */
@@ -33,16 +43,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activtiy_main);
+        GalleryLayout gallery = findViewById(R.id.gallery);
 
-        TextView welcomeTextView = new TextView(this);
+
+        try {
+            List<File> files = ImageLoaderUtil.loadImages(DCIM_PATH);
+            gallery.addImages(files);
+        } catch (IOException e) {
+            Log.e("Error", e.getMessage(), e);
+        }
 
         AccountManager accountManager = AccountManager.get(this);
         userManager = new UserManager(accountManager);
         account = userManager.saveAccount(new LoginCredentials("marcel", "1234"));
-
-        String welcomeText = "Welcome to Family Foto!";
-        welcomeTextView.setText(welcomeText);
-        setContentView(welcomeTextView);
     }
 
     /**
