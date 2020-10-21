@@ -18,6 +18,8 @@ public class PicassoAdapter {
      * @param targetHeight height of the image to which it will be cropped
      * @param imageView the {@link ImageView} where the image will be added to
      */
+    //This is a stream not a LoD Warning.
+    @SuppressWarnings("PMD.LawOfDemeter")
     public static void intoView(File file, int targetWidth, int targetHeight, ImageView imageView) {
         Picasso.get()
                 .load(file)
