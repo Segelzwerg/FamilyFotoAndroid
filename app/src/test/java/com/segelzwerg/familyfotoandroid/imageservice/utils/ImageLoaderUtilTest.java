@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImageLoaderUtil.loadImages;
@@ -29,9 +32,15 @@ public class ImageLoaderUtilTest {
     }
 
     @Test
-    public void testPathIsEmpty() {
+    public void testPathIsEmpty() throws IOException {
+        Path emptyDir = Paths.get("src/test/resources/EmptyDir");
+        if (Files.exists(emptyDir)) {
+            Files.delete(emptyDir);
+        }
+        Files.createDirectory(emptyDir);
         assertThatExceptionOfType(IOException.class)
                 .isThrownBy(() -> ImageLoaderUtil.loadImages("src/test/resources/EmptyDir"))
         .withMessageContaining("is empty.");
+        Files.delete(emptyDir);
     }
 }
