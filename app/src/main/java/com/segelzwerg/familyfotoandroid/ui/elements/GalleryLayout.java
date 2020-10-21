@@ -78,7 +78,8 @@ public class GalleryLayout extends LinearLayout {
     private void addImageToView(File file) {
         if (!file.exists()) {
             String message = String.format("File does not exists: %s", file.getAbsolutePath());
-            Log.d("FILE", message);
+            Log.e("FILE", message);
+            return;
         }
         ImageView imageView = new ImageView(super.getContext());
         Log.d("FILE", file.getAbsolutePath());
