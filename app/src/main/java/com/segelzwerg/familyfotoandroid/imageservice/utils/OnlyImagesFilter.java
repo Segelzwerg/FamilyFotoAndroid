@@ -2,6 +2,7 @@ package com.segelzwerg.familyfotoandroid.imageservice.utils;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Locale;
 
 /**
  * Only allows images files in directory.
@@ -12,7 +13,7 @@ public class OnlyImagesFilter implements FilenameFilter {
      */
     @Override
     public boolean accept(File dir, String name) {
-        return isJpg(name.toLowerCase());
+        return isJpg(name.toLowerCase(Locale.getDefault()));
     }
 
     private boolean isJpg(String name) {
