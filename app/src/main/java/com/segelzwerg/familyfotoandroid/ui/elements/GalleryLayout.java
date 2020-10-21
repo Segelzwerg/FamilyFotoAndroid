@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import com.squareup.picasso.Picasso;
+import com.segelzwerg.familyfotoandroid.imageservice.PicassoAdapter;
 
 import java.io.File;
 import java.util.List;
@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Extension of {@link LinearLayout}. It displays thumbnails of the images added.
  */
+
 public class GalleryLayout extends LinearLayout {
     /**
      * Height of the images.
@@ -82,12 +83,7 @@ public class GalleryLayout extends LinearLayout {
             return;
         }
         ImageView imageView = new ImageView(super.getContext());
-        Log.d("FILE", file.getAbsolutePath());
-        Picasso.get()
-                .load(file)
-                .resize(TARGET_WIDTH, TARGET_HEIGHT)
-                .centerCrop()
-                .into(imageView);
+        PicassoAdapter.intoView(file, TARGET_WIDTH, TARGET_HEIGHT, imageView);
         this.addView(imageView);
     }
 }
