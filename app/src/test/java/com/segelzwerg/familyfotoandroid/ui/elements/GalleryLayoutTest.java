@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.segelzwerg.familyfotoandroid.imageservice.PicassoAdapter;
+import com.segelzwerg.familyfotoandroid.imageservice.utils.PicassoAdapter;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;

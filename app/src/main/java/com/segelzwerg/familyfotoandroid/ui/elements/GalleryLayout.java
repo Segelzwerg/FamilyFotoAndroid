@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import com.segelzwerg.familyfotoandroid.imageservice.PicassoAdapter;
+import com.segelzwerg.familyfotoandroid.imageservice.utils.PicassoAdapter;
 
 import java.io.File;
 import java.util.List;

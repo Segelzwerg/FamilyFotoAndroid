@@ -1,4 +1,4 @@
-package com.segelzwerg.familyfotoandroid.imageservice;
+package com.segelzwerg.familyfotoandroid.imageservice.utils;
 
 import android.widget.ImageView;
 
