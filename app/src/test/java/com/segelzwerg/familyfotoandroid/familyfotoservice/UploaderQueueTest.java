@@ -34,4 +34,12 @@ public class UploaderQueueTest {
         uploaderQueue.upload();
         verify(uploader, times(1)).upload(PATH);
     }
+
+    @Test
+    public void testUploadsEmptiesList() {
+        uploaderQueue.add(new File(PATH));
+        uploaderQueue.upload();
+        uploaderQueue.upload();
+        verify(uploader, times(1)).upload(PATH);
+    }
 }
