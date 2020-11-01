@@ -34,6 +34,15 @@ public class ImageScraper  extends FileObserver {
     private transient long lastChecked;
 
     /**
+     * Constructor. Equivalent to ImageScraper(path, uploaderQueue, 0L)
+     *
+     * @param path to watch for scraping.
+     * @param uploaderQueue the queue were files are wait for their upload
+     */
+    public ImageScraper(Path path, UploaderQueue uploaderQueue) {
+        this(path, uploaderQueue, 0L);
+    }
+    /**
      * Equivalent to FileObserver(path, FileObserver.ALL_EVENTS).
      *
      * @param path to watch for scraping.
