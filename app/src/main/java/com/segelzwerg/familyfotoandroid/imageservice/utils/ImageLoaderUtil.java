@@ -1,10 +1,11 @@
 package com.segelzwerg.familyfotoandroid.imageservice.utils;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -25,12 +26,15 @@ public class ImageLoaderUtil {
         }
 
         OnlyImagesFilter onlyImagesFilter = new OnlyImagesFilter();
-        File[] files = Objects.requireNonNull(imagesDirectory.listFiles(onlyImagesFilter));
+        File[] files = imagesDirectory.listFiles(onlyImagesFilter);
 
         if (files.length == 0) {
             String message = String.format("Directory: %s is empty.",
                     imagesDirectory.getAbsolutePath());
             throw new IOException(message);
+        } else if (files == null) {
+            String message = "Probably permission for external storage usage not granted.";
+            Log.e("ERROR", message);
         }
         return Arrays.asList(files);
     }
