@@ -38,6 +38,13 @@ public class ImageScraper  extends FileObserver {
      */
     private transient long lastChecked;
 
+    /**
+     * Constructor.
+     *
+     * @param path          where to look for files
+     * @param uploaderQueue where the files should be listed for upload
+     * @throws IOException is thrown if path does not exists
+     */
     public ImageScraper(String path, UploaderQueue uploaderQueue) throws IOException {
         this(Paths.get(path), uploaderQueue);
     }
@@ -45,7 +52,7 @@ public class ImageScraper  extends FileObserver {
     /**
      * Constructor. Equivalent to ImageScraper(path, uploaderQueue, 0L)
      *
-     * @param path to watch for scraping.
+     * @param path          to watch for scraping.
      * @param uploaderQueue the queue were files are wait for their upload
      */
     public ImageScraper(@NonNull Path path, UploaderQueue uploaderQueue) throws IOException {
