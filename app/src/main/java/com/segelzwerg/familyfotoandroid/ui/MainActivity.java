@@ -3,6 +3,7 @@ package com.segelzwerg.familyfotoandroid.ui;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -12,7 +13,10 @@ import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.ManagerExtractionException;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.Uploader;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.UploaderQueue;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
+import com.segelzwerg.familyfotoandroid.imageservice.ImageScraper;
 import com.segelzwerg.familyfotoandroid.imageservice.utils.ImageLoaderUtil;
 import com.segelzwerg.familyfotoandroid.ui.elements.GalleryLayout;
 
@@ -20,14 +24,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * The main activity of this app.
  */
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
+    /**
+     * Path to the SD CARD.
+     */
+    private static final String SD_CARD_PATH = Environment.getExternalStorageDirectory().getPath();
     /**
      * Path to the camera directory.
      */
-    private static final String DCIM_PATH = "/storage/emulated/0/DCIM/Camera";
+    private static final String DCIM_PATH = String.format("%s/DCIM/Camera", SD_CARD_PATH);
     /**
      * Manages account provides by Google API.
      */
@@ -38,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
     private transient Account account;
 
     /**
+     * Service that uploads the files.
+     */
+    @Inject
+    transient Uploader uploader;
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -46,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activtiy_main);
         GalleryLayout gallery = findViewById(R.id.gallery);
 
+        UploaderQueue uploaderQueue = new UploaderQueue(uploader);
+        ImageScraper imageScraper;
+
+        try {
+            imageScraper = new ImageScraper(DCIM_PATH, uploaderQueue);
+            imageScraper.startWatching();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
             List<File> files = ImageLoaderUtil.loadImages(DCIM_PATH);
