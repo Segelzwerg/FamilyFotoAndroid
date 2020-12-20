@@ -1,0 +1,26 @@
+package com.segelzwerg.familyfotoandroid.utils;
+
+import android.app.Activity;
+
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import androidx.test.runner.lifecycle.Stage;
+
+import java.util.Collection;
+import java.util.Iterator;
+
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+
+public class ActivityUtils {
+    public static Activity getActivityInstance() {
+        final Activity[] currentActivity = {null};
+
+        getInstrumentation().runOnMainSync(() -> {
+            Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance()
+                    .getActivitiesInStage(Stage.RESUMED);
+            Iterator<Activity> it = activities.iterator();
+            currentActivity[0] = it.next();
+        });
+
+        return currentActivity[0];
+    }
+}

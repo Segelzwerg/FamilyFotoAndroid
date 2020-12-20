@@ -1,15 +1,13 @@
 package com.segelzwerg.familyfotoandroid.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import androidx.test.runner.lifecycle.Stage;
 
 import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+import com.segelzwerg.familyfotoandroid.utils.ActivityUtils;
 
 import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
@@ -17,8 +15,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -35,7 +31,6 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule.MOCK_SERVER_PORT;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -56,19 +51,6 @@ public class TestLoginActivity {
     public void tearDown() throws IOException {
         Intents.release();
         mockWebServer.shutdown();
-    }
-
-    private Activity getActivityInstance() {
-        final Activity[] currentActivity = {null};
-
-        getInstrumentation().runOnMainSync(() -> {
-            Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance()
-                    .getActivitiesInStage(Stage.RESUMED);
-            Iterator<Activity> it = activities.iterator();
-            currentActivity[0] = it.next();
-        });
-
-        return currentActivity[0];
     }
 
     @Test
@@ -105,7 +87,7 @@ public class TestLoginActivity {
                 closeSoftKeyboard());
         onView(withId(R.id.login)).perform(click());
         AuthToken expectedToken = new AuthToken("token");
-        MainActivity mainActivity = (MainActivity)getActivityInstance();
+        MainActivity mainActivity = (MainActivity) ActivityUtils.getActivityInstance();
         AuthToken authToken = mainActivity.getAuthToken();
         assertThat(authToken).usingRecursiveComparison().isEqualTo(expectedToken);
     }
