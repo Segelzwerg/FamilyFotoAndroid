@@ -6,7 +6,9 @@ package com.segelzwerg.familyfotoandroid.familyfotoservice;
 public interface Uploader {
     /**
      * Uploads the file to a specific server.
+     *
      * @param path to the file
+     * @return if the upload was successful
      */
-    void upload(String path);
+    boolean upload(String path);
 }
