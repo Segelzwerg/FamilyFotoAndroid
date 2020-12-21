@@ -1,7 +1,8 @@
 package com.segelzwerg.familyfotoandroid.familyfotoservice;
 
 import java.io.File;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class UploaderQueue {
      */
     public UploaderQueue(Uploader uploader) {
         this.uploader = uploader;
-        this.filesQueued = new LinkedList<>();
+        this.filesQueued = new ArrayList<>();
     }
 
     /**
@@ -46,12 +47,17 @@ public class UploaderQueue {
      * Tells the uploader to send all files and removes them.
      */
     public void upload() {
-        filesQueued.forEach(this::uploadFile);
+
+        for (Iterator<String> iterator = filesQueued.iterator(); iterator.hasNext(); ) {
+            boolean success = uploadFile(iterator.next());
+            if (success) {
+                iterator.remove();
+            }
+        }
     }
 
-    private void uploadFile(String file) {
-        uploader.upload(file);
-        filesQueued.remove(file);
+    private boolean uploadFile(String file) {
+        return uploader.upload(file);
     }
 
 
