@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Service that uploads the files.
      */
+    // Dagger can't inject in private fields.
+    @SuppressWarnings({"checkstyle:VisibilityModifier", "PMD.DefaultPackage"})
     @Inject
     transient Uploader uploader;
     /**
