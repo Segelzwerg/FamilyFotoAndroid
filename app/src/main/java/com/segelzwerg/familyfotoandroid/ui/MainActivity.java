@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
      */
     @Inject
     transient Uploader uploader;
+    /**
+     * Queue where all file to be uploaded are collected.
+     */
+    private UploaderQueue uploaderQueue;
 
     /**
      * {@inheritDoc}
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activtiy_main);
         GalleryLayout gallery = findViewById(R.id.gallery);
 
-        UploaderQueue uploaderQueue = new UploaderQueue(uploader);
+        uploaderQueue = new UploaderQueue(uploader);
         ImageScraper imageScraper;
 
         try {
@@ -89,10 +93,15 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Gets the auth token for the current user.
+     *
      * @return {@link AuthToken}
      * @throws ManagerExtractionException the auth token could not be extracted from the response
      */
     public AuthToken getAuthToken() throws ManagerExtractionException {
         return userManager.getAuthToken(account);
+    }
+
+    public UploaderQueue getUploaderQueue() {
+        return uploaderQueue;
     }
 }
