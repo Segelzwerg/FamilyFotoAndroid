@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -46,13 +48,16 @@ public class TestFamilyFotoServerService {
                 .setBody("{token:token}");
         mockWebServer.enqueue(response);
         LoginCredentials credentials = new LoginCredentials("Marcel", "1234");
-        Call<AuthToken> login = familyFotoServerService.login(credentials);
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", String.format("Basic %s", credentials.encode()));
+        Call<AuthToken> login = familyFotoServerService.login(headers);
         Response<AuthToken> tokenResponse = login.execute();
         RecordedRequest request = mockWebServer.takeRequest(1, TimeUnit.SECONDS);
 
         AuthToken expected_token = new AuthToken("token");
 
         assertThat(request.getPath()).isEqualTo("/api/token");
+        assertThat(request.getHeader("Authorization")).isEqualTo("Basic " + credentials.encode());
         assertThat(tokenResponse.code()).isEqualTo(HttpsURLConnection.HTTP_OK);
         assertThat(tokenResponse.body()).usingRecursiveComparison().isEqualTo(expected_token);
     }
