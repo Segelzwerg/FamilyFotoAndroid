@@ -15,6 +15,9 @@ import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 import com.segelzwerg.familyfotoandroid.ui.elements.RequiredField;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -77,10 +80,10 @@ public class LoginActivity extends AppCompatActivity {
         String username = editTextUsername.getString();
         String password = editTextPassword.getString();
         LoginCredentials loginCredentials = new LoginCredentials(username, password);
-
-        Call<AuthToken> login = server.login(loginCredentials);
-
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", String.format("Basic %s", loginCredentials.encode()));
+        Call<AuthToken> login = server.login(headers);
         login.enqueue(new LoginCallBack<>(getApplicationContext(), userManager, loginCredentials));
-     }
+    }
 
 }
