@@ -10,13 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.Header;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 import com.segelzwerg.familyfotoandroid.ui.elements.RequiredField;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -80,9 +78,9 @@ public class LoginActivity extends AppCompatActivity {
         String username = editTextUsername.getString();
         String password = editTextPassword.getString();
         LoginCredentials loginCredentials = new LoginCredentials(username, password);
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", String.format("Basic %s", loginCredentials.encode()));
-        Call<AuthToken> login = server.login(headers);
+        Header header = new Header();
+        header.addAuthentication(loginCredentials);
+        Call<AuthToken> login = server.login(header.getHeaders());
         login.enqueue(new LoginCallBack<>(getApplicationContext(), userManager, loginCredentials));
     }
 

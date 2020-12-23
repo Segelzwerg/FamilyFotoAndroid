@@ -2,6 +2,7 @@ package com.segelzwerg.familyfotoandroid;
 
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.Header;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.utils.RetrofitClientUtil;
 
@@ -10,8 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -48,9 +47,10 @@ public class TestFamilyFotoServerService {
                 .setBody("{token:token}");
         mockWebServer.enqueue(response);
         LoginCredentials credentials = new LoginCredentials("Marcel", "1234");
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", String.format("Basic %s", credentials.encode()));
-        Call<AuthToken> login = familyFotoServerService.login(headers);
+        Header header = new Header();
+        header.addAuthentication(credentials);
+        header.addAuthentication(credentials);
+        Call<AuthToken> login = familyFotoServerService.login(header.getHeaders());
         Response<AuthToken> tokenResponse = login.execute();
         RecordedRequest request = mockWebServer.takeRequest(1, TimeUnit.SECONDS);
 
