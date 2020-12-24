@@ -1,6 +1,7 @@
 package com.segelzwerg.familyfotoandroid.familyfotoservice;
 
-import android.util.Base64;
+
+import java.util.Base64;
 
 import lombok.Value;
 
@@ -25,7 +26,15 @@ public class LoginCredentials {
      */
     public String encode() {
         String authString = String.format("%s:%s", username, password);
-        return Base64.encodeToString(toBytes(authString), Base64.DEFAULT);
+        return createEncodedString(authString);
+    }
+
+    private String createEncodedString(String authString) {
+        return getString(Base64.getEncoder(), authString);
+    }
+
+    private String getString(Base64.Encoder encoder, String authString) {
+        return encoder.encodeToString(toBytes(authString));
     }
 
     private byte[] toBytes(String authString) {
