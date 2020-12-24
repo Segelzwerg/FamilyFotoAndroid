@@ -2,6 +2,7 @@ package com.segelzwerg.familyfotoandroid;
 
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.Header;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.utils.RetrofitClientUtil;
 
@@ -46,13 +47,17 @@ public class TestFamilyFotoServerService {
                 .setBody("{token:token}");
         mockWebServer.enqueue(response);
         LoginCredentials credentials = new LoginCredentials("Marcel", "1234");
-        Call<AuthToken> login = familyFotoServerService.login(credentials);
+        Header header = new Header();
+        header.addAuthentication(credentials);
+        header.addAuthentication(credentials);
+        Call<AuthToken> login = familyFotoServerService.login(header.getHeaders());
         Response<AuthToken> tokenResponse = login.execute();
         RecordedRequest request = mockWebServer.takeRequest(1, TimeUnit.SECONDS);
 
         AuthToken expected_token = new AuthToken("token");
 
         assertThat(request.getPath()).isEqualTo("/api/token");
+        assertThat(request.getHeader("Authorization")).isEqualTo("Basic " + credentials.encode());
         assertThat(tokenResponse.code()).isEqualTo(HttpsURLConnection.HTTP_OK);
         assertThat(tokenResponse.body()).usingRecursiveComparison().isEqualTo(expected_token);
     }
