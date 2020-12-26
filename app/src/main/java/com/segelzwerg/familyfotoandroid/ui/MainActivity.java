@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Queue where all file to be uploaded are collected.
      */
-    private UploaderQueue uploaderQueue;
+    private transient UploaderQueue uploaderQueue;
 
     /**
      * {@inheritDoc}
@@ -103,6 +103,11 @@ public class MainActivity extends AppCompatActivity {
         return userManager.getAuthToken(account);
     }
 
+    /**
+     * Queue of images to be uploaded.
+     *
+     * @return {@link UploaderQueue}
+     */
     public UploaderQueue getUploaderQueue() {
         return uploaderQueue;
     }
