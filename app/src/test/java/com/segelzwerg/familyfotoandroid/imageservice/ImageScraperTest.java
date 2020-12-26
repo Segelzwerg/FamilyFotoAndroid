@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -17,7 +18,7 @@ import static org.mockito.Mockito.verify;
 
 public class ImageScraperTest {
 
-    public static final long LAST_CHECKED = 0L;
+    public static final LocalDateTime LAST_CHECKED = LocalDateTime.MIN;
     public static final String DIR_PATH = "src/test/resources/";
     private static final String pathToFile = String.format("%stest-image.jpg", DIR_PATH);
 

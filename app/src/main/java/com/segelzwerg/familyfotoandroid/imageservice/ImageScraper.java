@@ -15,8 +15,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Calendar;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 
@@ -36,7 +38,7 @@ public class ImageScraper  extends FileObserver {
     /**
      * The last time the scraper looked for new files.
      */
-    private transient long lastChecked;
+    private transient LocalDateTime lastChecked;
 
     /**
      * Constructor.
@@ -54,24 +56,28 @@ public class ImageScraper  extends FileObserver {
      *
      * @param path          to watch for scraping.
      * @param uploaderQueue the queue were files are wait for their upload
+     * @throws IOException is thrown if path does not exists
      */
     public ImageScraper(@NonNull Path path, UploaderQueue uploaderQueue) throws IOException {
-        this(path, uploaderQueue, 0L);
+        this(path, uploaderQueue, LocalDateTime.MIN);
     }
+
     /**
      * Equivalent to FileObserver(path, FileObserver.ALL_EVENTS).
      *
-     * @param path to watch for scraping.
+     * @param path          to watch for scraping.
      * @param uploaderQueue the queue were files are wait for their upload
-     * @param lastChecked the last time the system was checked
+     * @param lastChecked   the last time the system was checked
+     * @throws IOException is thrown if path does not exists
      */
-    public ImageScraper(Path path, UploaderQueue uploaderQueue, long lastChecked) throws IOException {
+    @SuppressWarnings("PMD.UnusedAssignment") // This is a false positive.
+    public ImageScraper(Path path, UploaderQueue uploaderQueue, LocalDateTime lastChecked) throws IOException {
         super(String.valueOf(path));
         this.path = getPathIfExists(path);
         this.uploaderQueue = uploaderQueue;
         this.lastChecked = lastChecked;
         changesSinceLastTime().forEach(uploaderQueue::add);
-        this.lastChecked = Calendar.getInstance().getTime().getTime();
+        this.lastChecked = LocalDateTime.now();
     }
 
     private Path getPathIfExists(Path path) throws FileNotFoundException {
@@ -92,16 +98,19 @@ public class ImageScraper  extends FileObserver {
     public void onEvent(int event, @Nullable String path) {
             if (event == FileObserver.CREATE) {
                 uploaderQueue.add(path);
-                lastChecked = Calendar.getInstance().getTime().getTime();
+                lastChecked = LocalDateTime.now();
                 Log.d("FILE", String.format("File created, add to queue: %s", path));
             }
     }
 
+    @SuppressWarnings("PMD.LawOfDemeter")
     private List<File> changesSinceLastTime() throws IOException {
         List<File> files = ImageLoaderUtil.loadImages(path.toString());
         return files.stream()
                 .filter(file -> !file.isDirectory())
-                .filter(file -> file.lastModified() > lastChecked)
+                .filter(file -> lastChecked.isBefore(
+                        LocalDateTime.ofInstant(Instant.ofEpochMilli(file.lastModified()),
+                                TimeZone.getDefault().toZoneId())))
                 .collect(Collectors.toList());
     }
 }
