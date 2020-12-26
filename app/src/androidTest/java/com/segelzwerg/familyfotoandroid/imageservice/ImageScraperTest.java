@@ -1,7 +1,6 @@
 package com.segelzwerg.familyfotoandroid.imageservice;
 
 import android.content.Intent;
-import android.os.Environment;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
@@ -11,9 +10,6 @@ import com.segelzwerg.familyfotoandroid.utils.ActivityUtils;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,21 +23,13 @@ public class ImageScraperTest {
     IntentsTestRule<MainActivity> rule = new IntentsTestRule<>(MainActivity.class);
 
     @Test
-    public void test_upload_queue() throws IOException {
+    public void test_upload_queue() {
         rule.launchActivity(new Intent());
-        String sdCardPath = Environment.getExternalStorageDirectory().getPath();
-        String pathToFile = sdCardPath + "/DCIM/Camera/";
-        File file = new File(pathToFile, "test.jpg");
-        FileWriter fileWriter = new FileWriter((file));
-        fileWriter.append("test content");
-        fileWriter.flush();
-        fileWriter.close();
         MainActivity mainActivity = (MainActivity) ActivityUtils.getActivityInstance();
         UploaderQueue uploaderQueue = mainActivity.getUploaderQueue();
-        List<String> expectedQueue = new ArrayList<String>(Arrays.asList(
+        List<String> expectedQueue = new ArrayList<>(Arrays.asList(
                 "/storage/emulated/0/DCIM/Camera/IMG-20190717-WA0004.jpg",
-                "/storage/emulated/0/DCIM/Camera/IMG-20190717-WA0006.jpg",
-                pathToFile + "test.jpg"));
+                "/storage/emulated/0/DCIM/Camera/IMG-20190717-WA0006.jpg"));
         assertThat(uploaderQueue).hasFieldOrPropertyWithValue("filesQueued", expectedQueue);
     }
 }
