@@ -2,12 +2,14 @@ package com.segelzwerg.familyfotoandroid.imageservice;
 
 import android.content.Intent;
 
+import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UploaderQueue;
 import com.segelzwerg.familyfotoandroid.ui.MainActivity;
 import com.segelzwerg.familyfotoandroid.utils.ActivityUtils;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -21,6 +23,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @HiltAndroidTest
 public class ImageScraperTest {
     IntentsTestRule<MainActivity> rule = new IntentsTestRule<>(MainActivity.class);
+
+    @AfterEach
+    public void tearDown() {
+        Intents.release();
+    }
 
     @Test
     public void test_upload_queue() {
