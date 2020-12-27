@@ -19,7 +19,6 @@ public class FamilyFotoUploaderTest {
     public static final String PATH = "/test";
 
     private FamilyFotoUploader uploader;
-    private Header header;
     private FamilyFotoServerService server;
     private Header successHeader;
     private Header failedHeader;
