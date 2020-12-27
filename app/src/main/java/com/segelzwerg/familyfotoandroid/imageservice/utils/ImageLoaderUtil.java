@@ -32,7 +32,8 @@ public class ImageLoaderUtil {
         } else if (files.length == 0) {
             String message = String.format("Directory: %s is empty.",
                     imagesDirectory.getAbsolutePath());
-            throw new IOException(message);
+            Log.e("ERROR", message);
+            files = new File[]{};
         }
         return Arrays.asList(files);
     }

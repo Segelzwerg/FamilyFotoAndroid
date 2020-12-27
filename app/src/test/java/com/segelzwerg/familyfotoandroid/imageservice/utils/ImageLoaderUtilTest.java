@@ -40,13 +40,14 @@ public class ImageLoaderUtilTest {
     }
 
     @Test
-    public void testPathIsEmpty() {
+    public void testPathIsEmpty() throws IOException {
         Path emptyDir = Paths.get(RESOURCE_PATH.toString(), EMPTY_DIR);
         try (MockedStatic<FileLoaderUtil> fileLoader = mockStatic(FileLoaderUtil.class)) {
             fileLoader.when(() -> FileLoaderUtil.getFiles(any(), any())).thenReturn(new File[]{});
-            assertThatExceptionOfType(IOException.class)
-                    .isThrownBy(() -> ImageLoaderUtil.loadImages(emptyDir.toString()))
-                    .withMessageContaining("is empty.");
+            String absolutePath = RESOURCE_PATH.toAbsolutePath() + "/emptyDir";
+            List<File> files = loadImages(absolutePath);
+            assertThat(files).hasSize(0);
+
         }
     }
 
