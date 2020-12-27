@@ -2,9 +2,11 @@ package com.segelzwerg.familyfotoandroid.ui;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.ManagerExtractionException;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.UploadListener;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.Uploader;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UploaderQueue;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
@@ -70,8 +73,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activtiy_main);
         GalleryLayout gallery = findViewById(R.id.gallery);
+        Button uploadButton = (Button) findViewById(R.id.uploadBtn);
+
+        AccountManager accountManager = AccountManager.get(this);
+        userManager = new UserManager(accountManager);
+        account = userManager.saveAccount(new LoginCredentials("admin", "admin"));
 
         uploaderQueue = new UploaderQueue(uploader);
+        try {
+            Account account = userManager.getAccount("admin");
+            uploadButton.setOnClickListener(new UploadListener(uploaderQueue, userManager, account));
+        } catch (RuntimeException e) {
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            getApplicationContext().startActivity(intent, null);
+        }
+
         ImageScraper imageScraper;
 
         try {
@@ -88,9 +104,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Error", e.getMessage(), e);
         }
 
-        AccountManager accountManager = AccountManager.get(this);
-        userManager = new UserManager(accountManager);
-        account = userManager.saveAccount(new LoginCredentials("marcel", "1234"));
+
     }
 
     /**
