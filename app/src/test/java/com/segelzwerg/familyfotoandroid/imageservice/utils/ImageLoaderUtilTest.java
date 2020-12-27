@@ -43,7 +43,7 @@ public class ImageLoaderUtilTest {
     public void testPathIsEmpty() {
         Path emptyDir = Paths.get(RESOURCE_PATH.toString(), EMPTY_DIR);
         try (MockedStatic<FileLoaderUtil> fileLoader = mockStatic(FileLoaderUtil.class)) {
-            fileLoader.when(() -> FileLoaderUtil.getFiles(emptyDir.toFile(), new OnlyImagesFilter())).thenReturn(new File[]{});
+            fileLoader.when(() -> FileLoaderUtil.getFiles(any(), any())).thenReturn(new File[]{});
             assertThatExceptionOfType(IOException.class)
                     .isThrownBy(() -> ImageLoaderUtil.loadImages(emptyDir.toString()))
                     .withMessageContaining("is empty.");
