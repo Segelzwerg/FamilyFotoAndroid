@@ -76,12 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
         AccountManager accountManager = AccountManager.get(this);
         userManager = new UserManager(accountManager);
-        account = userManager.saveAccount(new LoginCredentials("admin", "admin"));
+        userManager.saveAccount(new LoginCredentials("admin", "admin"));
 
         uploaderQueue = new UploaderQueue(uploader);
         Account account = userManager.getAccount("admin");
         UploadListener uploadListener = new UploadListener(uploaderQueue, userManager, account);
-        uploadButton.setOnClickListener(uploadListener);
+        setListener(uploadButton, uploadListener);
 
 
         ImageScraper imageScraper;
@@ -101,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void setListener(Button uploadButton, UploadListener uploadListener) {
+        uploadButton.setOnClickListener(uploadListener);
     }
 
     /**
