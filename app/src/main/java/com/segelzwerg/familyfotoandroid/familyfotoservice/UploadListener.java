@@ -12,12 +12,12 @@ public class UploadListener implements View.OnClickListener {
     /**
      * Queue where images are stored for uploading.
      */
-    private final UploaderQueue uploaderQueue;
+    private final transient UploaderQueue uploaderQueue;
     /**
      * Token required to authenticate to the server.
      */
     @Setter
-    private AuthToken authToken = null;
+    private transient AuthToken authToken = null;
 
     /**
      * Constructor.
