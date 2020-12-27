@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             imageScraper = new ImageScraper(DCIM_PATH, uploaderQueue);
             imageScraper.startWatching();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("Error", e.getMessage(), e);
         }
 
         try {
