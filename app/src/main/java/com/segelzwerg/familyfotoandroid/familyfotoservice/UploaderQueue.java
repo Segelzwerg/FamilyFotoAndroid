@@ -46,8 +46,9 @@ public class UploaderQueue {
     /**
      * Tells the uploader to send all files and removes them.
      */
-    public void upload() {
 
+    @SuppressWarnings("checkstyle:EmptyForIteratorPad")
+    public void upload() {
         for (Iterator<String> iterator = filesQueued.iterator(); iterator.hasNext(); ) {
             boolean success = uploadFile(iterator.next());
             if (success) {
