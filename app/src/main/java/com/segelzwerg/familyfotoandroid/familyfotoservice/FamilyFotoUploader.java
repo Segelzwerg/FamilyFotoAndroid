@@ -28,6 +28,7 @@ public class FamilyFotoUploader implements Uploader {
      * @param header contains header arguments
      * @param path   to the file
      */
+    @SuppressWarnings("PMD.OnlyOneReturn")
     @Override
     public boolean upload(String path, Header header) {
         File file = FileLoaderUtil.getFile(path);
