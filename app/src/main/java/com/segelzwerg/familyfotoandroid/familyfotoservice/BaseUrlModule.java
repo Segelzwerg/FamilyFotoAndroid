@@ -16,10 +16,14 @@ public class BaseUrlModule {
      * Port on which the server is listening.
      */
     public static final int MOCK_SERVER_PORT = 5000;
+    /**
+     * IP address of the host.
+     */
     public static final String HOST = "10.0.2.2";
 
     /**
      * Provides the base URL of the family foto server.
+     *
      * @return {@link HttpUrl} server url
      */
     @Provides
