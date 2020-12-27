@@ -32,7 +32,7 @@ public class FamilyFotoUploaderTest {
         Call<Response> failure = mock(Call.class);
         when(failure.execute()).thenThrow(IOException.class);
         successHeader = new Header();
-        successHeader.addAuthentication(new LoginCredentials("marcel", "1234"));
+        successHeader.addToken(1, "abc");
         failedHeader = new Header();
         when(server.upload(eq(successHeader.getHeaders()), any(RequestBody.class)))
                 .thenReturn(success);
