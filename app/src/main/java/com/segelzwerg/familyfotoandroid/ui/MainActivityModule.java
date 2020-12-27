@@ -1,5 +1,6 @@
 package com.segelzwerg.familyfotoandroid.ui;
 
+import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoUploader;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.Uploader;
 
@@ -17,10 +18,11 @@ public class MainActivityModule {
     /**
      * Provides an uploader to family foto server.
      *
+     * @param server the host to this client
      * @return {@link FamilyFotoUploader}
      */
     @Provides
-    public static Uploader provideUploader() {
-        return new FamilyFotoUploader();
+    public static Uploader provideUploader(FamilyFotoServerService server) {
+        return new FamilyFotoUploader(server);
     }
 }
