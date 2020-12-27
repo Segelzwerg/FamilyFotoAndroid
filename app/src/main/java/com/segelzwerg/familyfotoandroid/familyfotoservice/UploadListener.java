@@ -17,7 +17,7 @@ public class UploadListener implements View.OnClickListener {
      * Token required to authenticate to the server.
      */
     @Setter
-    private transient AuthToken authToken = null;
+    private transient AuthToken authToken;
 
     /**
      * Constructor.
