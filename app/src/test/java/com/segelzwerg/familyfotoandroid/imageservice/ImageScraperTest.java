@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.Assertions.assertThatIOException;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -51,5 +52,11 @@ public class ImageScraperTest {
         imageScraper.onEvent(FileObserver.CREATE, pathToFile);
         verify(uploaderQueue, times(1)).add(pathToFile);
 
+    }
+
+    @Test
+    public void testPathNotExists() {
+        assertThatIOException().isThrownBy(() ->
+                new ImageScraper(Paths.get("/abc"), uploaderQueue, LAST_CHECKED));
     }
 }
