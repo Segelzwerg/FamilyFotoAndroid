@@ -11,6 +11,6 @@ public class BaseUrlModuleTest {
     @Test
     public void provideBaseUrl() {
         HttpUrl baseUrl = BaseUrlModule.provideBaseUrl();
-        assertThat(baseUrl).isEqualTo(HttpUrl.parse("http://localhost:5000"));
+        assertThat(baseUrl).isEqualTo(HttpUrl.parse("http://10.0.2.2:5000"));
     }
 }
