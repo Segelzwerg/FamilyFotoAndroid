@@ -1,5 +1,7 @@
 package com.segelzwerg.familyfotoandroid.familyfotoservice;
 
+import android.util.Log;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -60,6 +62,7 @@ public class UploaderQueue {
     }
 
     private boolean uploadFile(String file, Header header) {
+        Log.d("UPLOAD", String.format("Try to upload %s", file));
         return uploader.upload(file, header);
     }
 
