@@ -17,7 +17,7 @@ public class UploadCallback implements Callback<Response> {
     }
 
     @Override
-    public final void onFailure(Call<Response> call, Throwable t) {
-        Log.e("UPLOAD", "Failed to upload", t);
+    public final void onFailure(Call<Response> call, Throwable throwable) {
+        Log.e("UPLOAD", "Failed to upload", throwable);
     }
 }
