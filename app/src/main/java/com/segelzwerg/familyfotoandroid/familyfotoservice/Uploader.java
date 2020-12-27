@@ -9,7 +9,6 @@ public interface Uploader {
      *
      * @param path   to the file
      * @param header contains header arguments
-     * @return if the upload was successful
      */
-    boolean upload(String path, Header header);
+    void upload(String path, Header header);
 }

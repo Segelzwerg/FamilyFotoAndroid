@@ -54,16 +54,15 @@ public class UploaderQueue {
     @SuppressWarnings("checkstyle:EmptyForIteratorPad")
     public void upload(Header header) {
         for (Iterator<String> iterator = filesQueued.iterator(); iterator.hasNext(); ) {
-            boolean success = uploadFile(iterator.next(), header);
-            if (success) {
-                iterator.remove();
-            }
+            uploadFile(iterator.next(), header);
+            // TODO: move this to upload call back
+            iterator.remove();
         }
     }
 
-    private boolean uploadFile(String file, Header header) {
+    private void uploadFile(String file, Header header) {
         Log.d("UPLOAD", String.format("Try to upload %s", file));
-        return uploader.upload(file, header);
+        uploader.upload(file, header);
     }
 
 

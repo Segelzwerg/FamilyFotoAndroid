@@ -26,12 +26,13 @@ public class FamilyFotoUploader implements Uploader {
     /**
      * Uploads the file to a specific server.
      *
-     * @param header contains header arguments
      * @param path   to the file
+     * @param header contains header arguments
      */
     @SuppressWarnings("PMD.OnlyOneReturn")
     @Override
-    public boolean upload(String path, Header header) {
+    // update to https://gist.github.com/shakil807g/535dc99f793d28f877db
+    public void upload(String path, Header header) {
         File file = FileLoaderUtil.getFile(path);
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
@@ -41,7 +42,6 @@ public class FamilyFotoUploader implements Uploader {
         MultipartBody body = builder.build();
         Call<Response> call = server.upload(header.getHeaders(), body);
         call.enqueue(new UploadCallback());
-        return true;
     }
 
     @NotNull
