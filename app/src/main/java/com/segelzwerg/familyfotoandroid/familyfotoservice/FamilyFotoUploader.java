@@ -34,13 +34,12 @@ public class FamilyFotoUploader implements Uploader {
         File file = FileLoaderUtil.getFile(path);
         RequestBody requestBody = RequestBody.create(file, MediaType.parse("image/*"));
         Call<Response> call = server.upload(header.getHeaders(), requestBody);
-        boolean success = true;
         try {
             call.execute();
         } catch (IOException e) {
             Log.e("ERROR", e.getMessage(), e);
-            success = false;
+            return false;
         }
-        return success;
+        return true;
     }
 }
