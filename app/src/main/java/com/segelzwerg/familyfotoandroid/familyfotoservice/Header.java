@@ -30,4 +30,15 @@ public class Header {
     public void addAuthentication(LoginCredentials credentials) {
         headers.put("Authorization", String.format("Basic %s", credentials.encode()));
     }
+
+    /**
+     * Adds token authentication header.
+     *
+     * @param userId is the user id
+     * @param token  is the token string
+     */
+    public void addToken(int userId, String token) {
+        headers.put("Authorization", String.format("Bearer %s", token));
+        headers.put("user_id", String.valueOf(userId));
+    }
 }
