@@ -33,6 +33,13 @@ public class ImageScraperTest {
     }
 
     @Test
+    public void testSimpleConstruction() throws IOException {
+        File file = new File(pathToFile);
+        imageScraper = new ImageScraper(DIR_PATH, uploaderQueue);
+        verify(uploaderQueue, times(1)).add(file);
+    }
+
+    @Test
     public void testConstruction() throws IOException {
         File file = new File(pathToFile);
         imageScraper = new ImageScraper(Paths.get(DIR_PATH), uploaderQueue, LAST_CHECKED);
