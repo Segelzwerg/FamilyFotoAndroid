@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class UploaderQueueTest {
 
@@ -38,6 +40,7 @@ public class UploaderQueueTest {
     @Test
     public void testUploadsEmptiesList() {
         uploaderQueue.add(new File(PATH));
+        when(uploader.upload(anyString())).thenReturn(true);
         uploaderQueue.upload();
         uploaderQueue.upload();
         verify(uploader, times(1)).upload(PATH);
