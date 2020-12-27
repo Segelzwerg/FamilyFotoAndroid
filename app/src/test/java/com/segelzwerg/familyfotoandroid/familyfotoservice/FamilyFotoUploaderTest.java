@@ -5,11 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -19,26 +21,33 @@ public class FamilyFotoUploaderTest {
     private FamilyFotoUploader uploader;
     private Header header;
     private FamilyFotoServerService server;
+    private Header successHeader;
+    private Header failedHeader;
 
     @BeforeEach
-    public void setUp() {
-        header = new Header();
+    public void setUp() throws IOException {
         server = mock(FamilyFotoServerService.class);
         uploader = new FamilyFotoUploader(server);
+        Call<Response> success = mock(Call.class);
+        Call<Response> failure = mock(Call.class);
+        when(failure.execute()).thenThrow(IOException.class);
+        successHeader = new Header();
+        successHeader.addAuthentication(new LoginCredentials("marcel", "1234"));
+        failedHeader = new Header();
+        when(server.upload(eq(successHeader.getHeaders()), any(RequestBody.class)))
+                .thenReturn(success);
+        when(server.upload(eq(failedHeader.getHeaders()), any(RequestBody.class)))
+                .thenReturn(failure);
+
     }
 
     @Test
     public void testSuccessfulUpload() {
-        Call<Response> call = mock(Call.class);
-        when(server.upload(any(), any())).thenReturn(call);
-        assertTrue(uploader.upload(PATH, header));
+        assertTrue(uploader.upload(PATH, successHeader));
     }
 
     @Test
-    public void testFailedUpload() throws IOException {
-        Call<Response> call = mock(Call.class);
-        when(call.execute()).thenThrow(IOException.class);
-        when(server.upload(any(), any())).thenReturn(call);
-        assertFalse(uploader.upload(PATH, header));
+    public void testFailedUpload() {
+        assertFalse(uploader.upload(PATH, failedHeader));
     }
 }
