@@ -7,8 +7,9 @@ public interface Uploader {
     /**
      * Uploads the file to a specific server.
      *
-     * @param path to the file
+     * @param path   to the file
+     * @param header contains header arguments
      * @return if the upload was successful
      */
-    boolean upload(String path);
+    boolean upload(String path, Header header);
 }
