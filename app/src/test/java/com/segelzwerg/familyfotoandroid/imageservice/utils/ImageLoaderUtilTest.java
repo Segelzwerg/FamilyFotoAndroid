@@ -53,7 +53,7 @@ public class ImageLoaderUtilTest {
     @Test
     public void testNullFile() throws IOException {
         try (MockedStatic<FileLoaderUtil> fileLoader = mockStatic(FileLoaderUtil.class)) {
-            fileLoader.when(() -> FileLoaderUtil.getFiles(any(), new OnlyImagesFilter())).thenReturn(null);
+            fileLoader.when(() -> FileLoaderUtil.getFiles(any(), any())).thenReturn(null);
             String absolutePath = RESOURCE_PATH.toAbsolutePath() + "/emptyDir";
             List<File> files = loadImages(absolutePath);
             assertThat(files).hasSize(0);
