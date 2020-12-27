@@ -1,14 +1,13 @@
 package com.segelzwerg.familyfotoandroid.familyfotoservice;
 
-import android.util.Log;
-
 import com.segelzwerg.familyfotoandroid.imageservice.utils.FileLoaderUtil;
+import com.segelzwerg.familyfotoandroid.ui.UploadCallback;
 
 import java.io.File;
-import java.io.IOException;
 
 import lombok.AllArgsConstructor;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
@@ -32,14 +31,14 @@ public class FamilyFotoUploader implements Uploader {
     @Override
     public boolean upload(String path, Header header) {
         File file = FileLoaderUtil.getFile(path);
-        RequestBody requestBody = RequestBody.create(file, MediaType.parse("image/*"));
-        Call<Response> call = server.upload(header.getHeaders(), requestBody);
-        try {
-            call.execute();
-        } catch (IOException e) {
-            Log.e("ERROR", e.getMessage(), e);
-            return false;
-        }
+
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MediaType.parse("multipart/form-data"));
+        MediaType type = MediaType.parse("image/jpeg");
+        builder.addFormDataPart("files", file.getName(), RequestBody.create(type, file));
+        MultipartBody body = builder.build();
+        Call<Response> call = server.upload(header.getHeaders(), body);
+        call.enqueue(new UploadCallback());
         return true;
     }
 }
