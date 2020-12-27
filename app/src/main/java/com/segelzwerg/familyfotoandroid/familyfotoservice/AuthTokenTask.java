@@ -27,18 +27,7 @@ public class AuthTokenTask extends AsyncTask<Void, Void, AuthToken> {
     private final UploadListener uploadListener;
 
     /**
-     * Override this method to perform a computation on a background thread. The
-     * specified parameters are the parameters passed to {@link #execute}
-     * by the caller of this task.
-     *
-     * <p>
-     * This will normally run on a background thread. But to better
-     * support testing frameworks, it is recommended that this also tolerates
-     * direct execution on the foreground thread, as part of the {@link #execute} call.
-     *
-     * <p>
-     * This method can call {@link #publishProgress} to publish updates
-     * on the UI thread.
+     * Retrieves a {@link AuthToken}.
      *
      * @param voids The parameters of the task.
      * @return A result, defined by the subclass of this task.
@@ -53,13 +42,7 @@ public class AuthTokenTask extends AsyncTask<Void, Void, AuthToken> {
     }
 
     /**
-     * <p>Runs on the UI thread after {@link #doInBackground}. The
-     * specified result is the value returned by {@link #doInBackground}.
-     * To better support testing frameworks, it is recommended that this be
-     * written to tolerate direct execution as part of the execute() call.
-     * The default version does nothing.</p>
-     *
-     * <p>This method won't be invoked if the task was cancelled.</p>
+     * Saves the {@link AuthToken} in the listener.
      *
      * @param token The result of the operation computed by {@link #doInBackground}.
      * @see #onPreExecute
