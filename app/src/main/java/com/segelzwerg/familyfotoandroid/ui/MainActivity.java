@@ -2,6 +2,7 @@ package com.segelzwerg.familyfotoandroid.ui;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -84,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
             Account account = userManager.getAccount("admin");
             uploadButton.setOnClickListener(new UploadListener(uploaderQueue, userManager, account));
         } catch (RuntimeException e) {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            getApplicationContext().startActivity(intent, null);
+            start(getApplicationContext(), LoginActivity.class);
         }
 
         ImageScraper imageScraper;
@@ -105,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void start(Context context, Class activityClass) {
+        Intent intent = new Intent(getApplicationContext(), activityClass);
+        context.startActivity(intent, null);
     }
 
     /**
