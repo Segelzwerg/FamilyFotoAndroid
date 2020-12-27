@@ -19,6 +19,7 @@ public class BaseUrlModule {
     /**
      * IP address of the host.
      */
+    @SuppressWarnings("PMD.AvoidUsingHardCodedIP") //this is temporary
     public static final String HOST = "10.0.2.2";
 
     /**
