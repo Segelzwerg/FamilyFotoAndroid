@@ -1,10 +1,10 @@
 package com.segelzwerg.familyfotoandroid.imageservice.utils;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -12,6 +12,8 @@ import java.util.List;
 import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImageLoaderUtil.loadImages;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mockStatic;
 
 public class ImageLoaderUtilTest {
 
@@ -38,15 +40,23 @@ public class ImageLoaderUtilTest {
     }
 
     @Test
-    public void testPathIsEmpty() throws IOException {
+    public void testPathIsEmpty() {
         Path emptyDir = Paths.get(RESOURCE_PATH.toString(), EMPTY_DIR);
-        if (Files.exists(emptyDir)) {
-            Files.delete(emptyDir);
+        try (MockedStatic<FileLoaderUtil> fileLoader = mockStatic(FileLoaderUtil.class)) {
+            fileLoader.when(() -> FileLoaderUtil.getFiles(emptyDir.toFile())).thenReturn(new File[]{});
+            assertThatExceptionOfType(IOException.class)
+                    .isThrownBy(() -> ImageLoaderUtil.loadImages(emptyDir.toString()))
+                    .withMessageContaining("is empty.");
         }
-        Files.createDirectory(emptyDir);
-        assertThatExceptionOfType(IOException.class)
-                .isThrownBy(() -> ImageLoaderUtil.loadImages(emptyDir.toString()))
-                .withMessageContaining("is empty.");
-        Files.delete(emptyDir);
+    }
+
+    @Test
+    public void testNullFile() throws IOException {
+        try (MockedStatic<FileLoaderUtil> fileLoader = mockStatic(FileLoaderUtil.class)) {
+            fileLoader.when(() -> FileLoaderUtil.getFiles(any())).thenReturn(null);
+            String absolutePath = RESOURCE_PATH.toAbsolutePath() + "/emptyDir";
+            List<File> files = loadImages(absolutePath);
+            assertThat(files).hasSize(0);
+        }
     }
 }
