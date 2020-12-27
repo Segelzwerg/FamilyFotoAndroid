@@ -48,6 +48,7 @@ class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
      * Redirects to MainActivity.
      * {@inheritDoc}
      */
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     @Override
     public void onResponse(Call<AuthToken> call, Response<AuthToken> response) {
         Intent intent = new Intent(context, MainActivity.class);
