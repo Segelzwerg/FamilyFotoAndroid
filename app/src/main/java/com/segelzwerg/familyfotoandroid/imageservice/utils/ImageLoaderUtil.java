@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class ImageLoaderUtil {
         if (files == null) {
             String message = "Probably permission for external storage usage not granted.";
             Log.e("ERROR", message);
-            return new ArrayList<>();
+            files = new File[]{};
         } else if (files.length == 0) {
             String message = String.format("Directory: %s is empty.",
                     imagesDirectory.getAbsolutePath());
