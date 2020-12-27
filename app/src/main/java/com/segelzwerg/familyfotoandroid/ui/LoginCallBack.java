@@ -3,6 +3,7 @@ package com.segelzwerg.familyfotoandroid.ui;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
@@ -15,9 +16,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+
 
 /**
  * Handles call backs after login requests.
+ *
  * @param <T> token that is returned from server
  */
 class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
@@ -51,9 +55,13 @@ class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
         if (account == null) {
             account = userManager.saveAccount(loginCredentials);
         }
-        userManager.saveAuthToken(Objects.requireNonNull(account),
-                Objects.requireNonNull(response.body()));
-        context.startActivity(intent, null);
+        if (response.code() == HTTP_UNAUTHORIZED) {
+            Log.e("ERROR", "Could authorize.");
+        } else {
+            userManager.saveAuthToken(Objects.requireNonNull(account),
+                    Objects.requireNonNull(response.body()));
+            context.startActivity(intent, null);
+        }
     }
 
     /**
