@@ -24,7 +24,7 @@ public class ImageLoaderUtil {
     public static List<File> loadImages(String path) throws IOException {
         File imagesDirectory = getImageDirectory(path);
 
-        File[] files = FileLoaderUtil.getFiles(imagesDirectory);
+        File[] files = FileLoaderUtil.getFiles(imagesDirectory, new OnlyImagesFilter());
 
         if (files == null) {
             String message = "Probably permission for external storage usage not granted.";
