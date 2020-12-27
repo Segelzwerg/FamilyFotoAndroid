@@ -39,6 +39,6 @@ public class Header {
      */
     public void addToken(int userId, String token) {
         headers.put("Authorization", String.format("Bearer %s", token));
-        headers.put("user_id", String.valueOf(userId));
+        headers.put("USER_ID", String.valueOf(userId));
     }
 }
