@@ -45,20 +45,22 @@ public class UploaderQueue {
 
     /**
      * Tells the uploader to send all files and removes them.
+     *
+     * @param header contains the header arguments
      */
 
     @SuppressWarnings("checkstyle:EmptyForIteratorPad")
-    public void upload() {
+    public void upload(Header header) {
         for (Iterator<String> iterator = filesQueued.iterator(); iterator.hasNext(); ) {
-            boolean success = uploadFile(iterator.next());
+            boolean success = uploadFile(iterator.next(), header);
             if (success) {
                 iterator.remove();
             }
         }
     }
 
-    private boolean uploadFile(String file) {
-        return uploader.upload(file);
+    private boolean uploadFile(String file, Header header) {
+        return uploader.upload(file, header);
     }
 
 
