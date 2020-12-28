@@ -7,6 +7,7 @@ import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule;
 import com.segelzwerg.familyfotoandroid.utils.ActivityUtils;
 
 import org.junit.Rule;
@@ -31,7 +32,7 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule.MOCK_SERVER_PORT;
+import static com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule.SERVER_PORT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @HiltAndroidTest
@@ -40,10 +41,12 @@ public class TestLoginActivity {
     IntentsTestRule<LoginActivity> rule = new IntentsTestRule<>(LoginActivity.class);
     private MockWebServer mockWebServer;
 
+
     @BeforeEach
     public void setUp() throws IOException {
+        BaseUrlModule.setHost("localhost");
         mockWebServer = new MockWebServer();
-        mockWebServer.start(MOCK_SERVER_PORT);
+        mockWebServer.start(SERVER_PORT);
         rule.launchActivity(new Intent());
     }
 
@@ -75,6 +78,7 @@ public class TestLoginActivity {
         onView(withId(R.id.login)).perform(click());
         intended(hasComponent(MainActivity.class.getName()));
     }
+
     @Test
     public void testTokenSaved() throws Exception {
         MockResponse response = new MockResponse()
