@@ -5,8 +5,10 @@ import android.content.Intent;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
+import com.google.gson.Gson;
 import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthTokenResponse;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule;
 import com.segelzwerg.familyfotoandroid.utils.ActivityUtils;
 
@@ -48,6 +50,13 @@ public class TestLoginActivity {
         mockWebServer = new MockWebServer();
         mockWebServer.start(SERVER_PORT);
         rule.launchActivity(new Intent());
+        AuthTokenResponse authTokenResponse = new AuthTokenResponse(new AuthToken("token"), 1);
+
+        Gson gson = new Gson();
+        MockResponse response = new MockResponse()
+                .setResponseCode(HttpsURLConnection.HTTP_OK)
+                .setBody(gson.toJson(authTokenResponse));
+        mockWebServer.enqueue(response);
     }
 
     @AfterEach
@@ -67,10 +76,6 @@ public class TestLoginActivity {
 
     @Test
     public void testLoginSuccess() {
-        MockResponse response = new MockResponse()
-                .setResponseCode(HttpsURLConnection.HTTP_OK)
-                .setBody("{token:token}");
-        mockWebServer.enqueue(response);
         onView(withId(R.id.username)).perform(typeText("marcel"),
                 closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText("12345678"),
@@ -81,10 +86,6 @@ public class TestLoginActivity {
 
     @Test
     public void testTokenSaved() throws Exception {
-        MockResponse response = new MockResponse()
-                .setResponseCode(HttpsURLConnection.HTTP_OK)
-                .setBody("{token:token}");
-        mockWebServer.enqueue(response);
         onView(withId(R.id.username)).perform(typeText("marcel"),
                 closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText("12345678"),
