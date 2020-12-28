@@ -17,20 +17,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/hostnameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintStart_toStartOf="parent"
+     <com.segelzwerg.familyfotoandroid.ui.elements.StringEditText
+         android:id="@+id/hostnameInput"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="204dp"
+         android:ems="10"
+         android:importantForAutofill="no"
+         android:inputType="textPersonName"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.92"
+         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.segelzwerg.familyfotoandroid.ui.elements.StringEditText
         android:id="@+id/portInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
