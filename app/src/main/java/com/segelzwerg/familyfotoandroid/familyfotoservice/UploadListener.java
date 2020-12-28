@@ -46,10 +46,10 @@ public class UploadListener implements View.OnClickListener {
      */
     @Override
     public void onClick(View view) {
-        Header header = new Header();
         if (authToken == null) {
             Log.e("AUTHENTICATION", "Auth token is null");
         } else {
+            Header header = new Header();
             header.addToken(userId, authToken.getToken());
             uploaderQueue.upload(header);
         }
