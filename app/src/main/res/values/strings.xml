@@ -12,4 +12,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="welcome_to_family_foto">Welcome to Family Foto!</string>
     <string name="upload">Upload</string>
+    <string name="hostname_or_ip_address">Hostname or IP address</string>
+    <string name="host_port">Host port</string>
 </resources>
