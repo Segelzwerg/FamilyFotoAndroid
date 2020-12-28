@@ -3,9 +3,8 @@ package com.segelzwerg.familyfotoandroid.familyfotoservice;
 import android.util.Log;
 
 import com.segelzwerg.familyfotoandroid.imageservice.utils.FileLoaderUtil;
+import com.segelzwerg.familyfotoandroid.imageservice.utils.ImageProperties;
 import com.segelzwerg.familyfotoandroid.ui.UploadCallback;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,15 +62,11 @@ public class FamilyFotoUploader implements Uploader {
             } catch (IOException e) {
                 Log.e("FILE", e.getMessage(), e);
             }
-            builder.addFormDataPart("files", getName(file), RequestBody.create(type, file));
+            builder.addFormDataPart("files", ImageProperties.getName(file), RequestBody.create(type, file));
         });
         MultipartBody body = builder.build();
         Call<Response> call = server.upload(header.getHeaders(), body);
         call.enqueue(new UploadCallback());
     }
 
-    @NotNull
-    private String getName(File file) {
-        return file.getName();
-    }
 }

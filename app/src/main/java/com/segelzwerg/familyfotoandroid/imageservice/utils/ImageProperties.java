@@ -54,4 +54,13 @@ public class ImageProperties {
     }
 
 
+    /**
+     * Gets the name of a file.
+     *
+     * @param file for which the name should be retrieved.
+     * @return string of the file name
+     */
+    public static String getName(File file) {
+        return file.getName();
+    }
 }
