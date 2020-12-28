@@ -33,7 +33,7 @@ public class TestUserManager {
     @BeforeEach
     public void setUp() throws AuthenticatorException, OperationCanceledException, IOException {
         accountManager = mock(AccountManager.class);
-        credentials = new LoginCredentials("marcel", "123123");
+        credentials = new LoginCredentials(1, "marcel", "123123");
         account = new Account(credentials.getUsername(), ACCOUNT_TYPE);
         accountManagerFuture = mock(AccountManagerFuture.class);
         Bundle bundle = mock(Bundle.class);
@@ -53,8 +53,8 @@ public class TestUserManager {
         Account savedUser = userManager.saveAccount(credentials);
         verify(accountManager, times(1))
                 .addAccountExplicitly(any(Account.class),
-                eq(credentials.getPassword()),
-                eq(null));
+                        eq(credentials.getPassword()),
+                        any(Bundle.class));
         assertThat(savedUser).usingRecursiveComparison().isEqualTo(account);
     }
     @Test

@@ -19,6 +19,10 @@ public class UploadListener implements View.OnClickListener {
      */
     @Setter
     private transient AuthToken authToken;
+    /**
+     * ID of an user.
+     */
+    private final int userId;
 
     /**
      * Constructor.
@@ -30,6 +34,7 @@ public class UploadListener implements View.OnClickListener {
     public UploadListener(UploaderQueue uploaderQueue,
                           UserManager userManager, Account account) {
         this.uploaderQueue = uploaderQueue;
+        userId = userManager.getUserId(account);
         AuthTokenTask authTokenTask = new AuthTokenTask(userManager, account, this);
         authTokenTask.execute();
     }
@@ -45,7 +50,7 @@ public class UploadListener implements View.OnClickListener {
         if (authToken == null) {
             Log.e("AUTHENTICATION", "Auth token is null");
         } else {
-            header.addToken(1, authToken.getToken());
+            header.addToken(userId, authToken.getToken());
             uploaderQueue.upload(header);
         }
     }

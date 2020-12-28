@@ -25,29 +25,47 @@ public class UserManager {
      */
     public static final String ACCOUNT_TYPE = "com.segelzwerg.familyfotoandroid";
     /**
+     * Key in user data for the ID.
+     */
+    public static final String USER_ID_KEY = "userId";
+    /**
      * Androids account manager.
      */
     private final AccountManager accountManager;
 
     /**
      * Saves the user credentials at the device.
+     *
      * @param credentials contains user's name and password.
      * @return the save Account
      */
     public Account saveAccount(LoginCredentials credentials) {
         Account account = new Account(credentials.getUsername(),
                 ACCOUNT_TYPE);
-        this.accountManager.addAccountExplicitly(account, credentials.getPassword(), null);
+        Bundle userData = new Bundle();
+        userData.putInt(USER_ID_KEY, credentials.getUserId());
+        this.accountManager.addAccountExplicitly(account, credentials.getPassword(), userData);
         return account;
     }
 
     /**
+     * Retrieves the user ID of an user.
+     *
+     * @param account for which the ID is requested.
+     * @return the id as an int.
+     */
+    public int getUserId(Account account) {
+        return Integer.parseInt(accountManager.getUserData(account, USER_ID_KEY));
+    }
+
+    /**
      * Retrieves the {@link AuthToken} for an user.
+     *
      * @param account the {@link Account} for whom the {@link AuthToken} should be returned
      * @return {@link AuthToken} for the user
      * @throws ManagerExtractionException is thrown if the user can not authenticate,
-     *      or if the operation is canceled,
-     *      or the input was invalid
+     *                                    or if the operation is canceled,
+     *                                    or the input was invalid
      */
     public AuthToken getAuthToken(Account account) throws ManagerExtractionException {
         AccountManagerFuture<Bundle> accountManagerAuthToken = accountManager.getAuthToken(account,
