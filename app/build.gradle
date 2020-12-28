@@ -3,6 +3,7 @@ apply plugin: 'de.mannodermaus.android-junit5'
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'project-report'
 apply plugin: 'jacoco'
 
 import io.franzbecker.gradle.lombok.task.DelombokTask
@@ -39,35 +40,38 @@ android {
         exclude("META-INF/LICENSE*")
     }
     testOptions {
-        execution 'ANDROID_TEST_ORCHESTRATOR'
-        animationsDisabled true
-        unitTests {
-            includeAndroidResources = true
-        }
+        unitTests.returnDefaultValues = true
     }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.work:work-runtime:2.4.0'
     implementation "com.google.dagger:hilt-android:2.28-alpha"
-    compileOnly 'org.projectlombok:lombok:1.18.12'
-    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    implementation 'com.squareup.picasso:picasso:2.8'
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
     annotationProcessor 'com.google.dagger:hilt-android:2.28-alpha'
     annotationProcessor "com.google.dagger:hilt-android-compiler:2.28-alpha"
     // (Required) Writing and executing Unit Tests on the JUnit Platform
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
-    testImplementation "org.mockito:mockito-core:2.28.2"
-    testImplementation "org.assertj:assertj-core:3.17.2"
+    testImplementation "org.mockito:mockito-inline:3.5.15"
+    testImplementation "org.assertj:assertj-core:3.18.1"
     testImplementation "com.squareup.okhttp3:mockwebserver:4.9.0"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
 
     androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
     androidTestImplementation 'org.mockito:mockito-android:2.23.4'
-    androidTestImplementation "org.assertj:assertj-core:3.17.2"
+    androidTestImplementation "org.assertj:assertj-core:3.18.1"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.3.0"
-
+    androidTestImplementation "androidx.test.espresso:espresso-intents:3.3.0"
     androidTestImplementation 'androidx.test:runner:1.3.0'
     androidTestImplementation 'androidx.test:rules:1.3.0'
     androidTestImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
@@ -81,6 +85,7 @@ dependencies {
 
 
     // 6) The instrumentation test companion libraries
+    androidTestImplementation "org.junit.platform:junit-platform-suite-api:1.7.0"
     androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.2.0")
     androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.2.0")
 
@@ -128,6 +133,30 @@ task javadoc(type: Javadoc) {
     source delombok.outputDir
     destinationDir = file "doc/javadoc"
     failOnError = false
+}
+
+task jacocoReport(type: JacocoReport) {
+    reports {
+        xml {
+            enabled true // coveralls plugin depends on xml format report
+        }
+
+        html {
+            enabled true
+        }
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**/*_MembersInjector.class',
+                              '**/Dagger*Component*.class',
+                              '**/Dagger*Subcomponent*.class',
+                              '**/*Subcomponent$Builder.class',
+                              '**/*Module_*Factory.class',
+                              '**/*_HiltComponents*.class'])
+        }))
+    }
 }
 
 tasks.check.dependsOn(tasks.pmd)
