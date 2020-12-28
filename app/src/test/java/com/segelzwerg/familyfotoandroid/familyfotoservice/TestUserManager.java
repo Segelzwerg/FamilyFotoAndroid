@@ -54,7 +54,7 @@ public class TestUserManager {
         verify(accountManager, times(1))
                 .addAccountExplicitly(any(Account.class),
                         eq(credentials.getPassword()),
-                        any(Bundle.class));
+                        eq(null));
         assertThat(savedUser).usingRecursiveComparison().isEqualTo(account);
     }
     @Test
