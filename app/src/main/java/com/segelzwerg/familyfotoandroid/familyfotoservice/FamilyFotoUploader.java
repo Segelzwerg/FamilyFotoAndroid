@@ -1,11 +1,14 @@
 package com.segelzwerg.familyfotoandroid.familyfotoservice;
 
+import android.util.Log;
+
 import com.segelzwerg.familyfotoandroid.imageservice.utils.FileLoaderUtil;
 import com.segelzwerg.familyfotoandroid.ui.UploadCallback;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +17,8 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+
+import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImageProperties.getMimeType;
 
 /**
  * Uploads a file to the family photo server.
@@ -52,7 +57,12 @@ public class FamilyFotoUploader implements Uploader {
                 .setType(MediaType.parse("multipart/form-data"));
         paths.forEach(path -> {
             File file = FileLoaderUtil.getFile(path);
-            MediaType type = MediaType.parse("image/jpeg");
+            MediaType type = null;
+            try {
+                type = MediaType.parse(getMimeType(file));
+            } catch (IOException e) {
+                Log.e("FILE", e.getMessage(), e);
+            }
             builder.addFormDataPart("files", getName(file), RequestBody.create(type, file));
         });
         MultipartBody body = builder.build();
