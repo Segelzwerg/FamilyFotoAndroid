@@ -16,7 +16,6 @@ public class ImagePropertiesTest {
     @Test
     public void testMimeType() throws IOException {
         Path path = Paths.get(pathToFile);
-        String url = path.toAbsolutePath().toString();
-        assertThat(getMimeType(url)).isEqualTo("image/jpeg");
+        assertThat(getMimeType(path.toFile())).isEqualTo("image/jpeg");
     }
 }
