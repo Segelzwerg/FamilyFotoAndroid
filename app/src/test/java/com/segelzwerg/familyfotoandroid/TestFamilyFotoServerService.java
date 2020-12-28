@@ -1,6 +1,7 @@
 package com.segelzwerg.familyfotoandroid;
 
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthTokenResponse;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.Header;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
@@ -50,8 +51,8 @@ public class TestFamilyFotoServerService {
         Header header = new Header();
         header.addAuthentication(credentials);
         header.addAuthentication(credentials);
-        Call<AuthToken> login = familyFotoServerService.login(header.getHeaders());
-        Response<AuthToken> tokenResponse = login.execute();
+        Call<AuthTokenResponse> login = familyFotoServerService.login(header.getHeaders());
+        Response<AuthTokenResponse> tokenResponse = login.execute();
         RecordedRequest request = mockWebServer.takeRequest(1, TimeUnit.SECONDS);
 
         AuthToken expected_token = new AuthToken("token");

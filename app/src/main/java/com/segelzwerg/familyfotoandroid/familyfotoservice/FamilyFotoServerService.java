@@ -19,7 +19,7 @@ public interface FamilyFotoServerService {
      * @return access token
      */
     @POST("/api/token")
-    Call<AuthToken> login(@HeaderMap Map<String, String> headers);
+    Call<AuthTokenResponse> login(@HeaderMap Map<String, String> headers);
 
     /**
      * Uploads a photo to the server.

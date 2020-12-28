@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         AccountManager accountManager = AccountManager.get(this);
         userManager = new UserManager(accountManager);
-        userManager.saveAccount(new LoginCredentials("admin", "admin"));
+        userManager.saveAccount(new LoginCredentials(1, "admin", "admin"));
 
         uploaderQueue = new UploaderQueue(uploader);
         Account account = userManager.getAccount("admin");

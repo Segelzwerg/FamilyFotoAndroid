@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthTokenResponse;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
 
@@ -32,7 +33,7 @@ import static org.mockito.Mockito.when;
 public class LoginCallBackTest {
 
     public static final String ACCOUNT_TYPE = "com.segelzwerg.familyfotoandroid";
-    private LoginCallBack<AuthToken> loginCallBack;
+    private LoginCallBack<AuthTokenResponse> loginCallBack;
     private Context context;
 
     @BeforeEach
@@ -62,9 +63,10 @@ public class LoginCallBackTest {
 
     @Test
     public void onResponse() {
-        Call<AuthToken> call = (Call<AuthToken>) mock(Call.class);
-        AuthToken token = new AuthToken("token");
-        Response<AuthToken> response = Response.success(token);
+        Call<AuthTokenResponse> call = (Call<AuthTokenResponse>) mock(Call.class);
+        AuthToken authToken = new AuthToken("token");
+        AuthTokenResponse authTokenResponse = new AuthTokenResponse(authToken, 1);
+        Response<AuthTokenResponse> response = Response.success(authTokenResponse);
         loginCallBack.onResponse(call, response);
         verify(context, times(1))
                 .startActivity(any(Intent.class), eq(null));

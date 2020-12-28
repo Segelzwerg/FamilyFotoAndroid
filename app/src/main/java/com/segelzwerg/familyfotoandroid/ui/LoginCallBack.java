@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthTokenResponse;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
 
@@ -24,7 +24,7 @@ import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
  *
  * @param <T> token that is returned from server
  */
-class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
+class LoginCallBack<T extends AuthTokenResponse> implements Callback<AuthTokenResponse> {
     /**
      * Context from where the Callback is called.
      */
@@ -50,16 +50,23 @@ class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
      */
     @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     @Override
-    public void onResponse(@NotNull Call<AuthToken> call, @NotNull Response<AuthToken> response) {
+    public void onResponse(@NotNull Call<AuthTokenResponse> call,
+                           @NotNull Response<AuthTokenResponse> response) {
         Intent intent = new Intent(context, MainActivity.class);
         Account account = userManager.getAccount(loginCredentials.getUsername());
+        AuthTokenResponse body = response.body();
+
         if (account == null) {
-            account = userManager.saveAccount(loginCredentials);
+            int userId = body.getUserId();
+            LoginCredentials updatedCredentials = new LoginCredentials(userId,
+                    this.loginCredentials.getUsername(),
+                    this.loginCredentials.getPassword());
+            account = userManager.saveAccount(updatedCredentials);
         }
         if (response.code() == HTTP_UNAUTHORIZED) {
             Log.e("ERROR", "Could authorize.");
         } else {
-            userManager.saveAuthToken(account, response.body());
+            userManager.saveAuthToken(account, body.getToken());
             context.startActivity(intent, null);
         }
     }
@@ -69,7 +76,7 @@ class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
      **/
     @SneakyThrows
     @Override
-    public void onFailure(Call<AuthToken> call, Throwable throwable) {
+    public void onFailure(Call<AuthTokenResponse> call, Throwable throwable) {
         throw throwable;
     }
 
