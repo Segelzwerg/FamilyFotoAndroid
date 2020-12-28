@@ -3,7 +3,7 @@ package com.segelzwerg.familyfotoandroid.familyfotoservice;
 import android.util.Log;
 
 import com.segelzwerg.familyfotoandroid.imageservice.utils.FileLoaderUtil;
-import com.segelzwerg.familyfotoandroid.imageservice.utils.ImageProperties;
+import com.segelzwerg.familyfotoandroid.imageservice.utils.ImagePropertiesUtil;
 import com.segelzwerg.familyfotoandroid.ui.UploadCallback;
 
 import java.io.File;
@@ -17,7 +17,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
-import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImageProperties.getMimeType;
+import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImagePropertiesUtil.getMimeType;
 
 /**
  * Uploads a file to the family photo server.
@@ -62,7 +62,7 @@ public class FamilyFotoUploader implements Uploader {
             } catch (IOException e) {
                 Log.e("FILE", e.getMessage(), e);
             }
-            builder.addFormDataPart("files", ImageProperties.getName(file), RequestBody.create(type, file));
+            builder.addFormDataPart("files", ImagePropertiesUtil.getName(file), RequestBody.create(type, file));
         });
         MultipartBody body = builder.build();
         Call<Response> call = server.upload(header.getHeaders(), body);

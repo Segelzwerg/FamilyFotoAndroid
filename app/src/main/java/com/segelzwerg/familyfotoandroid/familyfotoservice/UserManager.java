@@ -60,7 +60,6 @@ public class UserManager {
         String userData = accountManager.getUserData(account, USER_ID_KEY);
         if (userData == null) {
             Log.e("AUTHENTICATION", "There is no user id saved for " + account.name);
-            return null;
         }
         return Integer.parseInt(userData);
     }

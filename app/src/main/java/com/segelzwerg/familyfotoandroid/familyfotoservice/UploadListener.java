@@ -22,7 +22,7 @@ public class UploadListener implements View.OnClickListener {
     /**
      * ID of an user.
      */
-    private final int userId;
+    private final transient int userId;
 
     /**
      * Constructor.

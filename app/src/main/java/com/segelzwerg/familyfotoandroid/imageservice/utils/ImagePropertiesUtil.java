@@ -12,7 +12,7 @@ import java.net.URLConnection;
 /**
  * Retrieves meta information of an image.
  */
-public class ImageProperties {
+public class ImagePropertiesUtil {
     /**
      * Gets the mime type of a file.
      *

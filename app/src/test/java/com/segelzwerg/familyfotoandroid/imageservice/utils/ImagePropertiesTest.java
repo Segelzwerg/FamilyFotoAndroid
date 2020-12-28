@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImageProperties.getMimeType;
-import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImageProperties.getName;
+import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImagePropertiesUtil.getMimeType;
+import static com.segelzwerg.familyfotoandroid.imageservice.utils.ImagePropertiesUtil.getName;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ImagePropertiesTest {
