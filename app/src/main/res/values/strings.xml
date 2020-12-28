@@ -11,4 +11,5 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="welcome_to_family_foto">Welcome to Family Foto!</string>
+    <string name="upload">Upload</string>
 </resources>

@@ -13,7 +13,7 @@ public class PasswordWatcher extends RequiredFieldWatcher {
     /**
      * The minimum required password length.
      */
-    public static final int MIN_PASSWORD_LENGTH = 8;
+    public static final int MIN_PASSWORD_LENGTH = 4;
 
     /**
      * Constructor.

@@ -4,6 +4,10 @@ import android.content.Context;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -14,9 +18,16 @@ import static org.junit.Assert.assertEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ContextTest {
+    @BeforeEach
+    public void setUp() {
+        BaseUrlModule.setHost("localhost");
+    }
+
     /**
      * Use app context.
      */
+
+    @Order(1)
     @Test
     public void useAppContext() {
         // Context of the app under test.

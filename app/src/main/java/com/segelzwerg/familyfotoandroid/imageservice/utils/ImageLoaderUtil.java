@@ -1,10 +1,13 @@
 package com.segelzwerg.familyfotoandroid.imageservice.utils;
 
+import android.util.Log;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -18,20 +21,30 @@ public class ImageLoaderUtil {
      * @return {@link List} images as {@link File} in a list.
      */
     public static List<File> loadImages(String path) throws IOException {
+        File imagesDirectory = getImageDirectory(path);
+
+        File[] files = FileLoaderUtil.getFiles(imagesDirectory, new OnlyImagesFilter());
+
+        if (files == null) {
+            String message = "Probably permission for external storage usage not granted.";
+            Log.e("ERROR", message);
+            files = new File[]{};
+        } else if (files.length == 0) {
+            String message = String.format("Directory: %s is empty.",
+                    imagesDirectory.getAbsolutePath());
+            Log.e("ERROR", message);
+            files = new File[]{};
+        }
+        return Arrays.asList(files);
+    }
+
+    @NotNull
+    private static File getImageDirectory(String path) throws IOException {
         File imagesDirectory = new File(path);
         if (!imagesDirectory.isDirectory()) {
             String message = String.format("Directory not found %s", imagesDirectory.toString());
             throw new IOException(message);
         }
-
-        OnlyImagesFilter onlyImagesFilter = new OnlyImagesFilter();
-        File[] files = Objects.requireNonNull(imagesDirectory.listFiles(onlyImagesFilter));
-
-        if (files.length == 0) {
-            String message = String.format("Directory: %s is empty.",
-                    imagesDirectory.getAbsolutePath());
-            throw new IOException(message);
-        }
-        return Arrays.asList(files);
+        return imagesDirectory;
     }
 }

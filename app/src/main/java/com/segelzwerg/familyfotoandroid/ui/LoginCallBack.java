@@ -3,24 +3,28 @@ package com.segelzwerg.familyfotoandroid.ui;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
-import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthTokenResponse;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
 
-import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 
 import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+
 
 /**
  * Handles call backs after login requests.
+ *
  * @param <T> token that is returned from server
  */
-class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
+class LoginCallBack<T extends AuthTokenResponse> implements Callback<AuthTokenResponse> {
     /**
      * Context from where the Callback is called.
      */
@@ -44,16 +48,27 @@ class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
      * Redirects to MainActivity.
      * {@inheritDoc}
      */
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     @Override
-    public void onResponse(Call<AuthToken> call, Response<AuthToken> response) {
+    public void onResponse(@NotNull Call<AuthTokenResponse> call,
+                           @NotNull Response<AuthTokenResponse> response) {
         Intent intent = new Intent(context, MainActivity.class);
         Account account = userManager.getAccount(loginCredentials.getUsername());
+        AuthTokenResponse body = response.body();
+
         if (account == null) {
-            account = userManager.saveAccount(loginCredentials);
+            int userId = body.getUserId();
+            LoginCredentials updatedCredentials = new LoginCredentials(userId,
+                    this.loginCredentials.getUsername(),
+                    this.loginCredentials.getPassword());
+            account = userManager.saveAccount(updatedCredentials);
         }
-        userManager.saveAuthToken(Objects.requireNonNull(account),
-                Objects.requireNonNull(response.body()));
-        context.startActivity(intent, null);
+        if (response.code() == HTTP_UNAUTHORIZED) {
+            Log.e("ERROR", "Could authorize.");
+        } else {
+            userManager.saveAuthToken(account, body.getToken());
+            context.startActivity(intent, null);
+        }
     }
 
     /**
@@ -61,7 +76,7 @@ class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
      **/
     @SneakyThrows
     @Override
-    public void onFailure(Call<AuthToken> call, Throwable throwable) {
+    public void onFailure(Call<AuthTokenResponse> call, Throwable throwable) {
         throw throwable;
     }
 

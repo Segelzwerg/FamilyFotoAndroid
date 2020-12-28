@@ -1,6 +1,8 @@
 package com.segelzwerg.familyfotoandroid;
 
+import com.google.gson.Gson;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthTokenResponse;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.Header;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
@@ -42,23 +44,24 @@ public class TestFamilyFotoServerService {
 
     @Test
     public void testTokenRequest() throws InterruptedException, IOException {
+        AuthTokenResponse authTokenResponse = new AuthTokenResponse(new AuthToken("token"), 1);
+
+        Gson gson = new Gson();
         MockResponse response = new MockResponse()
                 .setResponseCode(HttpsURLConnection.HTTP_OK)
-                .setBody("{token:token}");
+                .setBody(gson.toJson(authTokenResponse));
         mockWebServer.enqueue(response);
         LoginCredentials credentials = new LoginCredentials("Marcel", "1234");
         Header header = new Header();
         header.addAuthentication(credentials);
         header.addAuthentication(credentials);
-        Call<AuthToken> login = familyFotoServerService.login(header.getHeaders());
-        Response<AuthToken> tokenResponse = login.execute();
+        Call<AuthTokenResponse> login = familyFotoServerService.login(header.getHeaders());
+        Response<AuthTokenResponse> tokenResponse = login.execute();
         RecordedRequest request = mockWebServer.takeRequest(1, TimeUnit.SECONDS);
-
-        AuthToken expected_token = new AuthToken("token");
 
         assertThat(request.getPath()).isEqualTo("/api/token");
         assertThat(request.getHeader("Authorization")).isEqualTo("Basic " + credentials.encode());
         assertThat(tokenResponse.code()).isEqualTo(HttpsURLConnection.HTTP_OK);
-        assertThat(tokenResponse.body()).usingRecursiveComparison().isEqualTo(expected_token);
+        assertThat(tokenResponse.body()).usingRecursiveComparison().isEqualTo(authTokenResponse);
     }
 }

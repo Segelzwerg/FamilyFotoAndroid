@@ -3,13 +3,19 @@ package com.segelzwerg.familyfotoandroid.familyfotoservice;
 
 import java.util.Base64;
 
+import lombok.AllArgsConstructor;
 import lombok.Value;
 
 /**
  * Wrapper for login data.
  */
+@AllArgsConstructor
 @Value
 public class LoginCredentials {
+    /**
+     * User ID in some request used.
+     */
+    private final Integer userId;
     /**
      * The username that is passed to the login request.
      */
@@ -18,6 +24,16 @@ public class LoginCredentials {
      * The plain text password passed to login request.
      */
     private final String password;
+
+    /**
+     * Constructor in case the id is not yet none.
+     *
+     * @param username The username that is passed to the login request.
+     * @param password The plain text password passed to login request.
+     */
+    public LoginCredentials(String username, String password) {
+        this(null, username, password);
+    }
 
     /**
      * Encodes the credentials with Base64.

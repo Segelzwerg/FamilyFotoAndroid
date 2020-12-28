@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.segelzwerg.familyfotoandroid.R;
-import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
+import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthTokenResponse;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.Header;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginCredentials loginCredentials = new LoginCredentials(username, password);
         Header header = new Header();
         header.addAuthentication(loginCredentials);
-        Call<AuthToken> login = server.login(header.getHeaders());
+        Call<AuthTokenResponse> login = server.login(header.getHeaders());
         login.enqueue(new LoginCallBack<>(getApplicationContext(), userManager, loginCredentials));
     }
 
