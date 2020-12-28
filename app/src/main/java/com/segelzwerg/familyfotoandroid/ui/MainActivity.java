@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         userManager.saveAccount(new LoginCredentials(1, "admin", "admin"));
 
         uploaderQueue = new UploaderQueue(uploader);
-        Account account = userManager.getAccount("admin");
+        account = userManager.getAccount("admin");
         UploadListener uploadListener = new UploadListener(uploaderQueue, userManager, account);
         setListener(uploadButton, uploadListener);
 
