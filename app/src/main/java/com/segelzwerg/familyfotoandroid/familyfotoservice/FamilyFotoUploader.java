@@ -56,13 +56,12 @@ public class FamilyFotoUploader implements Uploader {
                 .setType(MediaType.parse("multipart/form-data"));
         paths.forEach(path -> {
             File file = FileLoaderUtil.getFile(path);
-            MediaType type = null;
             try {
-                type = MediaType.parse(getMimeType(file));
+                MediaType type = MediaType.parse(getMimeType(file));
+                builder.addFormDataPart("files", ImagePropertiesUtil.getName(file), RequestBody.create(type, file));
             } catch (IOException e) {
                 Log.e("FILE", e.getMessage(), e);
             }
-            builder.addFormDataPart("files", ImagePropertiesUtil.getName(file), RequestBody.create(type, file));
         });
         MultipartBody body = builder.build();
         Call<Response> call = server.upload(header.getHeaders(), body);
