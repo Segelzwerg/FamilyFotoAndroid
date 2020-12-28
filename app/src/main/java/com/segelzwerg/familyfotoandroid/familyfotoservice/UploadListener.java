@@ -1,6 +1,7 @@
 package com.segelzwerg.familyfotoandroid.familyfotoservice;
 
 import android.accounts.Account;
+import android.util.Log;
 import android.view.View;
 
 import lombok.Setter;
@@ -41,7 +42,11 @@ public class UploadListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         Header header = new Header();
-        header.addToken(1, authToken.getToken());
-        uploaderQueue.upload(header);
+        if (authToken == null) {
+            Log.e("AUTHENTICATION", "Auth token is null");
+        } else {
+            header.addToken(1, authToken.getToken());
+            uploaderQueue.upload(header);
+        }
     }
 }
