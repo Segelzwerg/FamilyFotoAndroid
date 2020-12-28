@@ -6,6 +6,8 @@ import com.segelzwerg.familyfotoandroid.ui.UploadCallback;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import okhttp3.MediaType;
@@ -14,7 +16,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 
 /**
- * Uploads a file to the family foto server.
+ * Uploads a file to the family photo server.
  */
 @AllArgsConstructor
 public class FamilyFotoUploader implements Uploader {
@@ -33,12 +35,26 @@ public class FamilyFotoUploader implements Uploader {
     @Override
     // update to https://gist.github.com/shakil807g/535dc99f793d28f877db
     public void upload(String path, Header header) {
-        File file = FileLoaderUtil.getFile(path);
+        List<String> paths = Arrays.asList(path);
+        uploadFiles(paths, header);
+    }
+
+    /**
+     * Uploads multiple files.
+     *
+     * @param paths  list of file paths
+     * @param header contains header arguments. E.g. must contain token auth,
+     */
+    @Override
+    public void uploadFiles(List<String> paths, Header header) {
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MediaType.parse("multipart/form-data"));
-        MediaType type = MediaType.parse("image/jpeg");
-        builder.addFormDataPart("files", getName(file), RequestBody.create(type, file));
+        paths.forEach(path -> {
+            File file = FileLoaderUtil.getFile(path);
+            MediaType type = MediaType.parse("image/jpeg");
+            builder.addFormDataPart("files", getName(file), RequestBody.create(type, file));
+        });
         MultipartBody body = builder.build();
         Call<Response> call = server.upload(header.getHeaders(), body);
         call.enqueue(new UploadCallback());
