@@ -6,6 +6,7 @@ import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.os.Bundle;
+import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,9 +43,10 @@ public class UserManager {
     public Account saveAccount(LoginCredentials credentials) {
         Account account = new Account(credentials.getUsername(),
                 ACCOUNT_TYPE);
-        Bundle userData = new Bundle();
-        userData.putInt(USER_ID_KEY, credentials.getUserId());
-        this.accountManager.addAccountExplicitly(account, credentials.getPassword(), userData);
+        this.accountManager.addAccountExplicitly(account, credentials.getPassword(), null);
+        this.accountManager.setUserData(account,
+                USER_ID_KEY,
+                String.valueOf(credentials.getUserId()));
         return account;
     }
 
@@ -54,8 +56,13 @@ public class UserManager {
      * @param account for which the ID is requested.
      * @return the id as an int.
      */
-    public int getUserId(Account account) {
-        return Integer.parseInt(accountManager.getUserData(account, USER_ID_KEY));
+    public Integer getUserId(Account account) {
+        String userData = accountManager.getUserData(account, USER_ID_KEY);
+        if (userData == null) {
+            Log.e("AUTHENTICATION", "There is no user id saved for " + account.name);
+            return null;
+        }
+        return Integer.parseInt(userData);
     }
 
     /**
