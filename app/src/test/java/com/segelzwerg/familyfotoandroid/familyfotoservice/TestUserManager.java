@@ -55,6 +55,9 @@ public class TestUserManager {
                 .addAccountExplicitly(any(Account.class),
                         eq(credentials.getPassword()),
                         eq(null));
+        verify(accountManager, times(1)).setUserData(any(Account.class),
+                eq("userId"),
+                eq(String.valueOf(1)));
         assertThat(savedUser).usingRecursiveComparison().isEqualTo(account);
     }
     @Test
