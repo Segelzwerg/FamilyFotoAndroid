@@ -42,6 +42,7 @@ public class TestLoginActivity {
     @Rule
     IntentsTestRule<LoginActivity> rule = new IntentsTestRule<>(LoginActivity.class);
     private MockWebServer mockWebServer;
+    private AuthTokenResponse authTokenResponse;
 
 
     @BeforeEach
@@ -50,7 +51,7 @@ public class TestLoginActivity {
         mockWebServer = new MockWebServer();
         mockWebServer.start(SERVER_PORT);
         rule.launchActivity(new Intent());
-        AuthTokenResponse authTokenResponse = new AuthTokenResponse(new AuthToken("token"), 1);
+        authTokenResponse = new AuthTokenResponse(new AuthToken("token"), 1);
 
         Gson gson = new Gson();
         MockResponse response = new MockResponse()
@@ -91,9 +92,8 @@ public class TestLoginActivity {
         onView(withId(R.id.password)).perform(typeText("12345678"),
                 closeSoftKeyboard());
         onView(withId(R.id.login)).perform(click());
-        AuthToken expectedToken = new AuthToken("token");
         MainActivity mainActivity = (MainActivity) ActivityUtils.getActivityInstance();
         AuthToken authToken = mainActivity.getAuthToken();
-        assertThat(authToken).usingRecursiveComparison().isEqualTo(expectedToken);
+        assertThat(authToken).usingRecursiveComparison().isEqualTo(authTokenResponse.getToken());
     }
 }
