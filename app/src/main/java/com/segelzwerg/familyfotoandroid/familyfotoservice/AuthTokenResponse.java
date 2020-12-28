@@ -8,7 +8,7 @@ import lombok.Value;
 @Value
 public class AuthTokenResponse {
     /**
-     * Token returned from the server
+     * Token returned from the server.
      */
     private AuthToken token;
     /**
