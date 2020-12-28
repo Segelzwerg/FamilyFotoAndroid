@@ -9,7 +9,7 @@ import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
 
-import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 
 import lombok.SneakyThrows;
 import retrofit2.Call;
@@ -50,7 +50,7 @@ class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
      */
     @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     @Override
-    public void onResponse(Call<AuthToken> call, Response<AuthToken> response) {
+    public void onResponse(@NotNull Call<AuthToken> call, @NotNull Response<AuthToken> response) {
         Intent intent = new Intent(context, MainActivity.class);
         Account account = userManager.getAccount(loginCredentials.getUsername());
         if (account == null) {
@@ -59,8 +59,7 @@ class LoginCallBack<T extends AuthToken> implements Callback<AuthToken> {
         if (response.code() == HTTP_UNAUTHORIZED) {
             Log.e("ERROR", "Could authorize.");
         } else {
-            userManager.saveAuthToken(Objects.requireNonNull(account),
-                    Objects.requireNonNull(response.body()));
+            userManager.saveAuthToken(account, response.body());
             context.startActivity(intent, null);
         }
     }
