@@ -16,4 +16,7 @@
     <string name="host_port">Host port</string>
     <string name="save_changes">Save changes</string>
     <string name="restart">Requires restart of the app.</string>
+    <string name="main">Main</string>
+    <string name="login">Login</string>
+    <string name="settings">Settings</string>
 </resources>
