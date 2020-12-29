@@ -10,9 +10,10 @@
         <EditTextPreference
             app:key="hostname"
             app:title="Hostname or IP address"
-            app:isPreferenceVisible="true" />
+            app:summary="@string/restart" />
         <EditTextPreference
             app:key="host_port"
-            app:title="Host port" />
+            app:title="Host port"
+            app:summary="@string/restart" />
     </PreferenceCategory>
 </PreferenceScreen>

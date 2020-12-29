@@ -15,4 +15,5 @@
     <string name="hostname_or_ip_address">Hostname or IP address</string>
     <string name="host_port">Host port</string>
     <string name="save_changes">Save changes</string>
+    <string name="restart">Requires restart of the app.</string>
 </resources>
