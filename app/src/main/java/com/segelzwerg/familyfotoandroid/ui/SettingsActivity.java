@@ -1,29 +1,19 @@
 package com.segelzwerg.familyfotoandroid.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.segelzwerg.familyfotoandroid.R;
-import com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule;
-import com.segelzwerg.familyfotoandroid.ui.elements.IntEditText;
-import com.segelzwerg.familyfotoandroid.ui.elements.StringEditText;
+import com.segelzwerg.familyfotoandroid.ui.elements.SettingsFragment;
 
 /**
  * UI for dealing with all sorts of settings.
  */
 public class SettingsActivity extends AppCompatActivity {
-
-    /**
-     * Text input for hostname.
-     */
-    private StringEditText editHostname;
-    /**
-     * Text input for port number.
-     */
-    private IntEditText editPort;
 
     /**
      * {@inheritDoc}
@@ -32,9 +22,11 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
-        editHostname = findViewById(R.id.hostnameInput);
-        editPort = findViewById(R.id.portInput);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.settings_container, new SettingsFragment())
+                .commit();
     }
 
     /**
