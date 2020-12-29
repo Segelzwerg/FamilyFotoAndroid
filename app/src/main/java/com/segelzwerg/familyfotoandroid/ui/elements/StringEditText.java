@@ -8,15 +8,27 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import java.util.Objects;
 
+/**
+ * Provides a EditText that returns the string content directly.
+ */
 public class StringEditText extends AppCompatEditText {
+    /**
+     * {@inheritDoc}
+     */
     public StringEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public StringEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public StringEditText(Context context) {
         super(context);
     }
