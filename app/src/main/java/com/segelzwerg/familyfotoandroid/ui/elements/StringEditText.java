@@ -13,21 +13,29 @@ import java.util.Objects;
  */
 public class StringEditText extends AppCompatEditText {
     /**
-     * {@inheritDoc}
+     * Constructor.
+     *
+     * @param context      where the field is initialized
+     * @param attrs        of the field
+     * @param defStyleAttr style of the field
      */
     public StringEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     /**
-     * {@inheritDoc}
+     * Constructor.
+     * @param context where the field is initialized
+     * @param attrs of the field
      */
     public StringEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     /**
-     * {@inheritDoc}
+     * Constructor.
+     *
+     * @param context where the field is initialized
      */
     public StringEditText(Context context) {
         super(context);
