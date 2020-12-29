@@ -3,13 +3,16 @@
     <item
         android:id="@+id/main"
         android:contentDescription="@string/main"
-        android:title="@string/main" />
+        android:title="@string/main"
+        android:icon="@drawable/ic_action_home" />
     <item
         android:id="@+id/login"
         android:contentDescription="@string/login"
-        android:title="@string/login" />
+        android:title="@string/login"
+        android:icon="@drawable/ic_action_key" />
     <item
         android:id="@+id/settings"
         android:contentDescription="@string/settings"
-        android:title="@string/settings" />
+        android:title="@string/settings"
+        android:icon="@drawable/ic_action_gear" />
 </menu>
