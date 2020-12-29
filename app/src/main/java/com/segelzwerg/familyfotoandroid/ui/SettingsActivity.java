@@ -1,6 +1,5 @@
 package com.segelzwerg.familyfotoandroid.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.ui.elements.SettingsFragment;
+import com.segelzwerg.familyfotoandroid.ui.utils.ActivityUtils;
 
 /**
  * UI for dealing with all sorts of settings.
@@ -34,9 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
     public final boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            ActivityUtils.gotoActivity(this, MainActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }
