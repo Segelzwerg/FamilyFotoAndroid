@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.ui.LoginActivity;
 import com.segelzwerg.familyfotoandroid.ui.MainActivity;
+import com.segelzwerg.familyfotoandroid.ui.SettingsActivity;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
@@ -64,6 +65,9 @@ public class BottomNavigation extends BottomNavigationView {
                     break;
                 case R.id.login:
                     startActivity(context, new Intent(context, LoginActivity.class), null);
+                    break;
+                case R.id.settings:
+                    startActivity(context, new Intent(context, SettingsActivity.class), null);
                     break;
                 default:
                     return false;
