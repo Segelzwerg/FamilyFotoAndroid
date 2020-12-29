@@ -13,7 +13,7 @@ import com.segelzwerg.familyfotoandroid.ui.utils.ActivityUtils;
  */
 public abstract class ActivityBack extends AppCompatActivity {
     @Override
-    protected final void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityUtils.enableBackButton(getSupportActionBar());
     }
