@@ -2,6 +2,7 @@ package com.segelzwerg.familyfotoandroid.ui.utils;
 
 import android.content.Intent;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
@@ -18,5 +19,14 @@ public class ActivityUtils {
         Intent intent = new Intent(activity, activityClass);
         activity.startActivity(intent);
         activity.finish();
+    }
+
+    /**
+     * Enables the back button in an action bar.
+     *
+     * @param actionBar where the button should be activated
+     */
+    public static void enableBackButton(ActionBar actionBar) {
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 }
