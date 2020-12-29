@@ -34,11 +34,11 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule.SERVER_PORT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @HiltAndroidTest
 public class TestLoginActivity {
+    private static final int SERVER_PORT = 5000;
     @Rule
     IntentsTestRule<LoginActivity> rule = new IntentsTestRule<>(LoginActivity.class);
     private MockWebServer mockWebServer;
