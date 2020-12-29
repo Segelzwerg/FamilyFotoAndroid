@@ -14,9 +14,14 @@ import okhttp3.HttpUrl;
 @InstallIn(ApplicationComponent.class)
 public class BaseUrlModule {
     /**
+     * This is the default port for flask apps.
+     */
+    public static final int DEFAULT_FLASK_PORT = 5000;
+    /**
      * Port on which the server is listening.
      */
-    public static final int SERVER_PORT = 5000;
+    @Setter
+    private static int port = DEFAULT_FLASK_PORT;
     /**
      * IP address of the host.
      */
@@ -31,6 +36,6 @@ public class BaseUrlModule {
      */
     @Provides
     public static HttpUrl provideBaseUrl() {
-        return HttpUrl.parse("http://" + host + ":" + SERVER_PORT);
+        return HttpUrl.parse("http://" + host + ":" + port);
     }
 }
