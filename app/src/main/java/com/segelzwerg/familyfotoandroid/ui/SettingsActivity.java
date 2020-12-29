@@ -29,15 +29,14 @@ public class SettingsActivity extends AppCompatActivity {
                 .commit();
     }
 
-    /**
-     * Saves the settings.
-     *
-     * @param view from where the method is called.
-     */
-    public void saveSettings(View view) {
-        String hostname = editHostname.getString();
-        int port = editPort.getInt();
-        BaseUrlModule.setHost(hostname);
-        BaseUrlModule.setPort(port);
+    @Override
+    public final boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
