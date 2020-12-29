@@ -7,6 +7,8 @@ import androidx.preference.PreferenceManager;
 
 import com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule;
 
+import org.jetbrains.annotations.NotNull;
+
 import dagger.hilt.android.HiltAndroidApp;
 
 /**
@@ -42,10 +44,16 @@ public class FamilyFotoAndroidApplication extends Application {
         super.onCreate();
         SharedPreferences sharedPreferences = PreferenceManager.
                 getDefaultSharedPreferences(this);
-        String hostname = sharedPreferences.getString(HOSTNAME_KEY, EMULATOR_HOST);
-        int port = Integer.parseInt(sharedPreferences.getString(HOST_PORT_KEY,
+        String hostname = getStringValue(sharedPreferences, HOSTNAME_KEY, EMULATOR_HOST);
+        int port = Integer.parseInt(getStringValue(sharedPreferences,
+                HOST_PORT_KEY,
                 String.valueOf(FLASK_DEFAULT_PORT)));
         BaseUrlModule.setHost(hostname);
         BaseUrlModule.setPort(port);
+    }
+
+    @NotNull
+    private String getStringValue(SharedPreferences sharedPreferences, String hostnameKey, String emulatorHost) {
+        return sharedPreferences.getString(hostnameKey, emulatorHost);
     }
 }
