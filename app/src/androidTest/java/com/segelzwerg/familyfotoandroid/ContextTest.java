@@ -21,6 +21,7 @@ public class ContextTest {
     @BeforeEach
     public void setUp() {
         BaseUrlModule.setHost("localhost");
+        BaseUrlModule.setPort(5000);
     }
 
     /**

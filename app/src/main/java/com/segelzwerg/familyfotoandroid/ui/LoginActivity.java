@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthTokenResponse;
@@ -25,7 +24,7 @@ import retrofit2.Call;
  * Displays the login form and handles responses visually to login requests.
  */
 @AndroidEntryPoint
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends ActivityBack {
     /**
      * Handles request to the family foto server.
      */
@@ -57,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
 
-        LoginButton submitButton = findViewById(R.id.login);
+        LoginButton submitButton = findViewById(R.id.login_button);
 
         UsernameWatcher usernameWatcher = new UsernameWatcher(submitButton);
         PasswordWatcher passwordWatcher = new PasswordWatcher(submitButton);
@@ -72,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Requests login to family foto server.
+     *
      * @param view the view object that was clicked.
      */
     public void requestLogin(View view) {
