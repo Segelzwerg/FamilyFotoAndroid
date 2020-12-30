@@ -47,6 +47,7 @@ public class TestLoginActivity {
     @BeforeEach
     public void setUp() throws IOException {
         BaseUrlModule.setHost("localhost");
+        BaseUrlModule.setPort(5000);
         mockWebServer = new MockWebServer();
         mockWebServer.start(SERVER_PORT);
         rule.launchActivity(new Intent());
