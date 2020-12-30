@@ -1,23 +1,24 @@
 package com.segelzwerg.familyfotoandroid.ui.elements;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import androidx.annotation.Nullable;
-
+import com.google.android.flexbox.FlexboxLayoutManager;
 import com.segelzwerg.familyfotoandroid.imageservice.utils.PicassoAdapter;
 
 import java.io.File;
 import java.util.List;
 
 /**
- * Extension of {@link LinearLayout}. It displays thumbnails of the images added.
+ * Extension of {@link FlexboxLayoutManager}. It displays thumbnails of the images added.
  */
 
-public class GalleryLayout extends LinearLayout {
+public class GalleryLayout extends FlexboxLayoutManager {
+    /**
+     * Outer scope context where this layout is initialized.
+     */
+    private Context context;
     /**
      * Height of the images.
      */
@@ -26,43 +27,16 @@ public class GalleryLayout extends LinearLayout {
      * Width of the images.
      */
     private static final int TARGET_WIDTH = 250;
+
     /**
      * Constructor.
      * @param context where the layout is placed.
      */
     public GalleryLayout(Context context) {
         super(context);
+        this.context = context;
     }
 
-    /**
-     * Constructor.
-     * @param context where the layout is placed.
-     * @param attrs attribute set
-     */
-    public GalleryLayout(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    /**
-     * Constructor.
-     * @param context where the layout is placed.
-     * @param attrs attribute set
-     * @param defStyleAttr def style attribute
-     */
-    public GalleryLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    /**
-     * Constructor.
-     * @param context where the layout is placed.
-     * @param attrs attribute set
-     * @param defStyleAttr def style attribute
-     * @param defStyleRes def style resolution
-     */
-    public GalleryLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
 
     /**
      * Adds images to the gallery.
@@ -82,7 +56,7 @@ public class GalleryLayout extends LinearLayout {
             Log.e("FILE", message);
             return;
         }
-        ImageView imageView = new ImageView(super.getContext());
+        ImageView imageView = new ImageView(this.context);
         PicassoAdapter.intoView(file, TARGET_WIDTH, TARGET_HEIGHT, imageView);
         this.addView(imageView);
     }
