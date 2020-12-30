@@ -39,6 +39,13 @@ public class LoginCallBack<T extends AuthTokenResponse> implements Callback<Auth
      */
     private final transient LoginCredentials loginCredentials;
 
+    /**
+     * Handles response from the server after a login request.
+     *
+     * @param context          from which the method is called.
+     * @param userManager      handles user
+     * @param loginCredentials credentials used during login request
+     */
     public LoginCallBack(Context context, UserManager userManager, LoginCredentials loginCredentials) {
         this.context = context;
         this.userManager = userManager;
