@@ -53,12 +53,12 @@ public class BottomNavigation extends BottomNavigationView {
      * Is called when attached to a window. It will automatically set the destinations to the
      * buttons.
      */
-    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis")
     @Override
     protected final void onAttachedToWindow() {
         super.onAttachedToWindow();
         setOnNavigationItemSelectedListener(item -> {
-            Context context = getContext();
+            //this is a false positive in should be raised in version above 6.26.x
+            Context context = getContext(); //NOPMD
 
             switch (item.getItemId()) {
                 case R.id.nav_item_main:
