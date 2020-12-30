@@ -53,6 +53,7 @@ public class BottomNavigation extends BottomNavigationView {
      * Is called when attached to a window. It will automatically set the destinations to the
      * buttons.
      */
+    @SuppressWarnings("PMD.DataFlowAnomalyAnalysis")
     @Override
     protected final void onAttachedToWindow() {
         super.onAttachedToWindow();
