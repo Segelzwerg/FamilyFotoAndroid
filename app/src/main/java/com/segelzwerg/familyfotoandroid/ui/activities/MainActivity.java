@@ -9,7 +9,10 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.JustifyContent;
 import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
@@ -20,6 +23,7 @@ import com.segelzwerg.familyfotoandroid.familyfotoservice.UploaderQueue;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
 import com.segelzwerg.familyfotoandroid.imageservice.ImageScraper;
 import com.segelzwerg.familyfotoandroid.imageservice.utils.ImageLoaderUtil;
+import com.segelzwerg.familyfotoandroid.ui.elements.GalleryAdapter;
 import com.segelzwerg.familyfotoandroid.ui.elements.GalleryLayout;
 
 import java.io.File;
@@ -71,7 +75,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activtiy_main);
-        GalleryLayout gallery = findViewById(R.id.gallery);
+        RecyclerView gallery = (RecyclerView) findViewById(R.id.gallery);
+        GalleryLayout galleryLayout = new GalleryLayout(super.getApplicationContext());
+        galleryLayout.setJustifyContent(JustifyContent.FLEX_END);
+        galleryLayout.setFlexWrap(FlexWrap.WRAP);
+        gallery.setLayoutManager(galleryLayout);
         Button uploadButton = (Button) findViewById(R.id.uploadBtn);
 
         AccountManager accountManager = AccountManager.get(this);
@@ -95,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             List<File> files = ImageLoaderUtil.loadImages(DCIM_PATH);
-            gallery.addImages(files);
+            gallery.setAdapter(new GalleryAdapter(files));
+
         } catch (IOException e) {
             Log.e("Error", e.getMessage(), e);
         }
