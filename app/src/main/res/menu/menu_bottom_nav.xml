@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/main"
+        android:id="@+id/nav_item_main"
         android:contentDescription="@string/main"
         android:title="@string/main"
         android:icon="@drawable/ic_action_home" />
     <item
-        android:id="@+id/login"
+        android:id="@+id/nav_item_login"
         android:contentDescription="@string/login"
         android:title="@string/login"
         android:icon="@drawable/ic_action_key" />
     <item
-        android:id="@+id/settings"
+        android:id="@+id/nav_item_settings"
         android:contentDescription="@string/settings"
         android:title="@string/settings"
         android:icon="@drawable/ic_action_gear" />

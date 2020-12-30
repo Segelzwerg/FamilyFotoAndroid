@@ -60,13 +60,13 @@ public class BottomNavigation extends BottomNavigationView {
             Context context = getContext();
 
             switch (item.getItemId()) {
-                case R.id.main:
+                case R.id.nav_item_main:
                     startActivity(context, new Intent(context, MainActivity.class), null);
                     break;
-                case R.id.login:
+                case R.id.nav_item_login:
                     startActivity(context, new Intent(context, LoginActivity.class), null);
                     break;
-                case R.id.settings:
+                case R.id.nav_item_settings:
                     startActivity(context, new Intent(context, SettingsActivity.class), null);
                     break;
                 default:

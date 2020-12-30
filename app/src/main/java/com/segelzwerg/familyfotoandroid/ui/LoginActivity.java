@@ -56,7 +56,7 @@ public class LoginActivity extends ActivityBack {
         editTextUsername = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
 
-        LoginButton submitButton = findViewById(R.id.login);
+        LoginButton submitButton = findViewById(R.id.login_button);
 
         UsernameWatcher usernameWatcher = new UsernameWatcher(submitButton);
         PasswordWatcher passwordWatcher = new PasswordWatcher(submitButton);

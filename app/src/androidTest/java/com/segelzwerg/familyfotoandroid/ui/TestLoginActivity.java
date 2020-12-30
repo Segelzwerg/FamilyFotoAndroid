@@ -72,7 +72,7 @@ public class TestLoginActivity {
                 closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText("12345678"),
                 closeSoftKeyboard());
-        onView(withId(R.id.login)).check(matches(isEnabled()));
+        onView(withId(R.id.login_button)).check(matches(isEnabled()));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class TestLoginActivity {
                 closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText("12345678"),
                 closeSoftKeyboard());
-        onView(withId(R.id.login)).perform(click());
+        onView(withId(R.id.login_button)).perform(click());
         intended(hasComponent(MainActivity.class.getName()));
     }
 
@@ -91,7 +91,7 @@ public class TestLoginActivity {
                 closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText("12345678"),
                 closeSoftKeyboard());
-        onView(withId(R.id.login)).perform(click());
+        onView(withId(R.id.login_button)).perform(click());
         MainActivity mainActivity = (MainActivity) ActivityUtils.getActivityInstance();
         AuthToken authToken = mainActivity.getAuthToken();
         assertThat(authToken).usingRecursiveComparison().isNotNull();
