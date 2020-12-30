@@ -6,7 +6,7 @@ import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 import com.segelzwerg.familyfotoandroid.R;
-import com.segelzwerg.familyfotoandroid.ui.MainActivity;
+import com.segelzwerg.familyfotoandroid.ui.activities.MainActivity;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

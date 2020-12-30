@@ -8,6 +8,7 @@ import android.util.Log;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthTokenResponse;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
+import com.segelzwerg.familyfotoandroid.ui.activities.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,7 +25,7 @@ import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
  *
  * @param <T> token that is returned from server
  */
-class LoginCallBack<T extends AuthTokenResponse> implements Callback<AuthTokenResponse> {
+public class LoginCallBack<T extends AuthTokenResponse> implements Callback<AuthTokenResponse> {
     /**
      * Context from where the Callback is called.
      */
@@ -38,7 +39,14 @@ class LoginCallBack<T extends AuthTokenResponse> implements Callback<AuthTokenRe
      */
     private final transient LoginCredentials loginCredentials;
 
-    LoginCallBack(Context context, UserManager userManager, LoginCredentials loginCredentials) {
+    /**
+     * Handles response from the server after a login request.
+     *
+     * @param context          from which the method is called.
+     * @param userManager      handles user
+     * @param loginCredentials credentials used during login request
+     */
+    public LoginCallBack(Context context, UserManager userManager, LoginCredentials loginCredentials) {
         this.context = context;
         this.userManager = userManager;
         this.loginCredentials = loginCredentials;

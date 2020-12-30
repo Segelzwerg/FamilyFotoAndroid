@@ -9,9 +9,9 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.segelzwerg.familyfotoandroid.R;
-import com.segelzwerg.familyfotoandroid.ui.LoginActivity;
-import com.segelzwerg.familyfotoandroid.ui.MainActivity;
-import com.segelzwerg.familyfotoandroid.ui.SettingsActivity;
+import com.segelzwerg.familyfotoandroid.ui.activities.LoginActivity;
+import com.segelzwerg.familyfotoandroid.ui.activities.MainActivity;
+import com.segelzwerg.familyfotoandroid.ui.activities.SettingsActivity;
 
 import static androidx.core.content.ContextCompat.startActivity;
 

@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.segelzwerg.familyfotoandroid.ui.activities.MainActivity;
 import com.segelzwerg.familyfotoandroid.ui.utils.ActivityUtils;
 
 /**

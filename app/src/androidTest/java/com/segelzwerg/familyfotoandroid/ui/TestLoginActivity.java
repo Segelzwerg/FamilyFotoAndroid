@@ -10,6 +10,8 @@ import com.segelzwerg.familyfotoandroid.R;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthToken;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.AuthTokenResponse;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.BaseUrlModule;
+import com.segelzwerg.familyfotoandroid.ui.activities.LoginActivity;
+import com.segelzwerg.familyfotoandroid.ui.activities.MainActivity;
 import com.segelzwerg.familyfotoandroid.utils.ActivityUtils;
 
 import org.junit.Rule;

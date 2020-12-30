@@ -1,4 +1,4 @@
-package com.segelzwerg.familyfotoandroid.ui;
+package com.segelzwerg.familyfotoandroid.ui.activities.modules;
 
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerService;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoUploader;
