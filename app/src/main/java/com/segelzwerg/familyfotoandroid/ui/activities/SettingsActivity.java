@@ -1,10 +1,11 @@
-package com.segelzwerg.familyfotoandroid.ui;
+package com.segelzwerg.familyfotoandroid.ui.activities;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
 import com.segelzwerg.familyfotoandroid.R;
+import com.segelzwerg.familyfotoandroid.ui.ActivityBack;
 import com.segelzwerg.familyfotoandroid.ui.elements.SettingsFragment;
 
 /**

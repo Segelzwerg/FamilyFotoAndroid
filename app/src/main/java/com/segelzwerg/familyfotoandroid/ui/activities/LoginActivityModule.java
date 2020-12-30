@@ -1,4 +1,4 @@
-package com.segelzwerg.familyfotoandroid.ui;
+package com.segelzwerg.familyfotoandroid.ui.activities;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

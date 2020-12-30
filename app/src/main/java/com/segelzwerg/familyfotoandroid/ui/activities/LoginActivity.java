@@ -1,4 +1,4 @@
-package com.segelzwerg.familyfotoandroid.ui;
+package com.segelzwerg.familyfotoandroid.ui.activities;
 
 import android.accounts.AccountManager;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import com.segelzwerg.familyfotoandroid.familyfotoservice.FamilyFotoServerServic
 import com.segelzwerg.familyfotoandroid.familyfotoservice.Header;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.LoginCredentials;
 import com.segelzwerg.familyfotoandroid.familyfotoservice.UserManager;
+import com.segelzwerg.familyfotoandroid.ui.ActivityBack;
+import com.segelzwerg.familyfotoandroid.ui.LoginCallBack;
+import com.segelzwerg.familyfotoandroid.ui.PasswordWatcher;
+import com.segelzwerg.familyfotoandroid.ui.UsernameWatcher;
 import com.segelzwerg.familyfotoandroid.ui.elements.LoginButton;
 import com.segelzwerg.familyfotoandroid.ui.elements.RequiredField;
 

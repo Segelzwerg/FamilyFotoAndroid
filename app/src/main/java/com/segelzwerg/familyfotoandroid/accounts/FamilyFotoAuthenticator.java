@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.segelzwerg.familyfotoandroid.ui.LoginActivity;
+import com.segelzwerg.familyfotoandroid.ui.activities.LoginActivity;
 
 /**
  * Authenticates request to family foto server.
